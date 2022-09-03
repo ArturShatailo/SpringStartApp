@@ -1,0 +1,128 @@
+$primary: #e5e837;
+$secondary: rgb(254 159 151);
+$white: #fff;
+$black: #000;
+
+*, html, body{
+  margin: 0; padding: 0; border: none; font-family: Calibri, sans-serif;
+}
+
+a{
+  text-decoration: none;
+}
+
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+body{
+  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-size: cover;
+  background-position: center center;
+  backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
+}
+
+@mixin displayFlex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+h1{
+  font-size: 60px; color: $primary;
+}
+
+a{
+  font-size: 16px; color: $secondary; font-weight: 300; letter-spacing: 1.2px;
+
+  &:hover{
+    color: $white;
+  }
+
+}
+
+.button{
+  padding: 12px 30px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 22px; cursor: pointer; margin: 0 20px 0;
+
+  &:hover{
+    background-color: $secondary; color: $black; transform: scale(1.1);
+  }
+
+}
+
+header{
+  @include displayFlex(column, center, center); height: 20vh; position: relative;
+}
+
+main{
+
+  @include displayFlex(column, center, center); height: 70vh; padding-bottom: 10vh;
+
+  .login-additional-links{
+    @include displayFlex(column, center, center); margin-top: 15px;
+
+    h5{
+      margin-top: 5px;
+    }
+
+  }
+
+  form{
+
+    @include displayFlex(column, space-between, center); background-color: transparent; box-shadow: #e5e837 0 0 10px;
+    width: 500px; height: 400px; padding: 40px 40px;
+
+    .form-group-wrapper{
+      @include displayFlex(row, space-between, center); width: 100%; position: relative; padding: 15px 0 0;
+    }
+
+
+    .form-button-label{
+      @include displayFlex(column, center, center); margin-top: 30px;
+    }
+
+    .form-group {
+      position: relative;
+      width: 48%;
+    }
+
+    .form-field {
+      font-family: inherit; width: 100%; border-bottom: 2px solid $secondary; outline: 0;
+      font-size: 18px; color: $white; padding: 20px 0 10px; background: transparent; transition: 0.8s;
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:placeholder-shown ~ .form-label {
+        font-size: 18px; cursor: text; top: 20px;
+      }
+
+    }
+
+    .form-label {
+      position: absolute; top: 0; display: block; transition: 0.8s; font-size: 18px; color: $secondary;
+    }
+
+    .form-field:focus {
+
+      padding-bottom: 5px; font-weight: 500; border-width: 3px;
+      border-color: $secondary;/*linear-gradient(to right, $primary, $secondary); border-image-slice: 1;*/
+
+      ~ .form-label {
+        position: absolute; top: -5; display: block; transition: 0.8s; font-size: 18px ;
+        color: $primary; font-weight:700;
+      }
+
+    }
+
+  }
+
+}

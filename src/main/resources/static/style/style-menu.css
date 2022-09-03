@@ -1,0 +1,19 @@
+.menu {
+  width: 95vw;
+  padding: 20px;
+}
+.menu .menu-list {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.menu .menu-list .menu-button {
+  font-size: 20px;
+  margin: 0 30px;
+  text-transform: uppercase;
+}
+.menu .menu-list .active-menu-link {
+  color: white;
+}
+
+/*# sourceMappingURL=style-menu.css.map */

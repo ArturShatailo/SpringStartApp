@@ -1,0 +1,179 @@
+$primary: #e5e837;
+$secondary: rgb(254, 159, 151);
+$white: #fff;
+$black: #000;
+
+*, html, body{
+  margin: 0; padding: 0; border: none; font-family: Calibri, sans-serif;
+}
+
+a{
+  text-decoration: none;
+}
+
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+body{
+  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-size: cover;
+  background-position: center center;
+  backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
+}
+
+@mixin displayFlex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+h1{
+  font-size: 60px; color: $primary;
+}
+
+a{
+  font-size: 16px; color: $secondary; font-weight: 300; letter-spacing: 1.2px;
+
+  &:hover{
+    color: $white;
+  }
+
+}
+
+.button{
+  padding: 12px 30px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 22px; cursor: pointer; margin: 0 20px 0;
+
+  &:hover{
+    background-color: $secondary; color: $black; transform: scale(1.1);
+  }
+
+}
+
+header{
+  @include displayFlex(column, center, center); height: 20vh; position: relative;
+}
+
+main{
+
+  @include displayFlex(column, center, center); /*height: 60vh;*/ padding-bottom: 20vh; margin-top: 60px;
+
+  .note-message{
+    margin: 50px 0; background-color: #FE9F9720; padding: 20px; width: 550px;
+
+    p{
+      text-align: center; font-size: 18px; color: #FE9F97FF; line-height: 24px;
+    }
+
+  }
+
+  .funds-info{
+    flex-wrap: wrap;
+
+    @media (min-width: 767px) {
+      @include displayFlex(column, space-around, center); width: 100%
+    }
+
+    @media (min-width: 1024px) {
+      @include displayFlex(row, space-around, center); width: 50%;
+    }
+
+    div {
+      @include displayFlex(column, center, center); width: 350px; margin: 25px 0;
+
+      .walletUSD-icon {
+        background-image: url("images/usd-wallet.png");
+      }
+      .walletEUR-icon {
+        background-image: url("images/eur-wallet.png");
+      }
+
+      .funds-info-icon{
+        width: 80px;
+        height: 80px;
+        background-size: cover;
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: $white;
+        font-size: 20px;
+        font-weight: 300;
+        margin: 10px;
+        letter-spacing: 2px;
+        text-align: center;
+
+        span {
+          color: $primary;
+          font-weight: 500;
+          font-size: 24px;
+          letter-spacing: 5px;
+        }
+
+      }
+    }
+  }
+
+  form{
+
+    @include displayFlex(column, space-between, center); box-shadow: $primary 0 0 10px;
+    width: 510px; height: 400px; padding: 40px 40px; position: relative;
+
+    .close-pop-up{
+      position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; color: $primary; cursor: pointer;
+    }
+
+    .form-group-wrapper{
+      @include displayFlex(row, space-between, center); width: 100%; position: relative; padding: 15px 0 0;
+    }
+
+
+    .form-button-label{
+      @include displayFlex(column, center, center); margin-top: 30px;
+    }
+
+    .form-group {
+      position: relative;
+      width: 48%;
+    }
+
+    .form-field {
+      font-family: inherit; width: 100%; border-bottom: 2px solid $secondary; outline: 0;
+      font-size: 18px; color: $white; padding: 20px 0 10px; background: transparent; transition: 0.8s;
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:placeholder-shown ~ .form-label {
+        font-size: 18px; cursor: text; top: 20px;
+      }
+
+    }
+
+    .form-label {
+      position: absolute; top: 0; display: block; transition: 0.8s; font-size: 18px; color: $secondary;
+    }
+
+    .form-field:focus {
+
+      padding-bottom: 5px; font-weight: 500; border-width: 3px;
+      border-color: $secondary;/*linear-gradient(to right, $primary, $secondary); border-image-slice: 1;*/
+
+      ~ .form-label {
+        position: absolute; top: -5; display: block; transition: 0.8s; font-size: 18px ;
+        color: $primary; font-weight:700;
+      }
+
+    }
+
+  }
+
+}

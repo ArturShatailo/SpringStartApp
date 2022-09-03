@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link href="/style/style-c-m.css" rel="stylesheet" />
+    <link href="/style/style-register.css" rel="stylesheet" />
+    <script src="/script/jquery-3.6.0.min.js"></script>
+    <script src="/script/script-cookies.js"></script>
+</head>
+<body>
+
+<header>
+
+    <div class="cookies">
+
+    </div>
+
+    <h1>REGISTER</h1>
+</header>
+<main>
+    <form class="form register-form" action="/api/client-register" method="post">
+
+        <div class="form-group-wrapper">
+            <div class="form-group field">
+                <input type="text" class="form-field" placeholder="Name" name="name" id='name' required />
+                <label for="name" class="form-label">Name</label>
+            </div>
+            <div class="form-group field">
+                <input type="text" class="form-field" placeholder="Surname" name="surname" id='surname' required />
+                <label for="surname" class="form-label">Surname</label>
+            </div>
+        </div>
+        <div class="form-group-wrapper">
+            <div class="form-group field">
+                <input type="text" class="form-field" placeholder="Phone number" name="phone_number" id='phone_number' required />
+                <label for="phone_number" class="form-label">Phone number</label>
+            </div>
+            <div class="form-group field">
+                <input type="email" class="form-field" placeholder="Email" name="email" id='email' required />
+                <label for="email" class="form-label">Email</label>
+            </div>
+        </div>
+        <div class="form-group-wrapper">
+            <div class="form-group field">
+                <input type="password" class="form-field" placeholder="Password" name="password" id='password' required />
+                <label for="password" class="form-label">Password</label>
+            </div>
+            <div class="form-group field">
+                <input type="password" class="form-field" placeholder="Password" name="passwordRepeat" id='passwordRepeat' required />
+                <label for="passwordRepeat" class="form-label">Repeat password</label>
+            </div>
+        </div>
+        <label class="form-button-label">
+            <input id="sing-up-button" class="button" type="submit" name="signin" value="Register"/>
+        </label>
+    </form>
+    <section class="login-additional-links">
+        <h5><a href="/">Login instead</a></h5>
+        <h5><a href="#">Forgot password</a></h5>
+    </section>
+</main>
+
+</body>
+</html>

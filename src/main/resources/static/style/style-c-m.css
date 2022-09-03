@@ -1,0 +1,24 @@
+.cookies {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.cookies .successfulMessage {
+  background-color: rgba(118, 253, 165, 0.6);
+  color: #000;
+  font-size: 18px;
+  padding: 20px 30px;
+}
+.cookies .errorMessage {
+  background-color: rgba(118, 253, 248, 0.6);
+  color: #000;
+  font-size: 18px;
+  padding: 20px 30px;
+}
+
+/*# sourceMappingURL=style-c-m.css.map */

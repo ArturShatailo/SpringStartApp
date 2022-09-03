@@ -1,0 +1,172 @@
+$primary: #e5e837;
+$secondary: rgb(254 159 151);
+$white: #fff;
+$black: #000;
+
+*, html, body{
+  margin: 0; padding: 0; border: none; font-family: Calibri, sans-serif;
+}
+
+a{
+  text-decoration: none;
+}
+
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+body{
+  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-size: cover;
+  background-position: center center;
+  backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
+  min-height: 100vh;
+}
+
+@mixin displayFlex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+h1{
+  font-size: 60px; color: $primary;
+}
+
+a{
+  font-size: 16px; color: $secondary; font-weight: 300; letter-spacing: 1.2px;
+
+  &:hover{
+    color: $white;
+  }
+
+}
+
+.button{
+  padding: 5px 15px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 14px; cursor: pointer; margin: 0 20px 0;
+
+  &:hover{
+    background-color: $secondary; color: $black; transform: scale(1.1);
+  }
+
+}
+
+.button-logout{
+  padding: 12px 30px; background-color: transparent; color: $secondary; font-size: 22px; cursor: pointer; margin: 0 20px 0;
+}
+
+header{
+  @include displayFlex(column, center, center); height: 20vh; position: relative;
+}
+
+main {
+  @include displayFlex(column, center, center);
+  padding: 2% 5% 10px;
+
+  .search-section {
+
+    width: 100%;
+    padding: 20px;
+
+    .search-value {
+      width: 200px;
+      height: 28px;
+      outline: none !important;
+      padding: 5px;
+      background-color: rgba(229, 232, 55, 0.71);
+    }
+
+  }
+
+  .display-section {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    @include displayFlex(column, center, center);
+    width: 100%;
+
+
+    .display-scroll-wrapper {
+      overflow-y: scroll;
+      @include displayFlex(column, flex-start, flex-start);
+      height: 400px;
+      width: 100%;
+      overflow-x: scroll;
+      //align-items: center;
+
+      @media (min-width: 767px) {
+        /*width: 600px;*/
+        overflow-x: scroll;
+        height: 900px;
+      }
+
+      @media (min-width: 1024px) {
+        /*width: 1050px;*/
+        overflow-x: scroll;
+        height: 400px;
+      }
+
+      .table-titles-section {
+        @include displayFlex(column, flex-start, flex-start);
+        height: auto;
+        width: 100%;
+        /*overflow-x: scroll;*/
+        align-items: center;
+
+        div {
+          @include displayFlex(row, center, center);
+          padding: 10px 0;
+
+          p {
+            min-width: 175px;
+            font-size: 16px;
+            color: $white;
+            font-weight: 600;
+            text-align: center;
+          }
+
+        }
+      }
+      .content-table-inner {
+
+        @include displayFlex(column, flex-start, flex-start);
+        height: auto;
+        width: 100%;
+        /*overflow-x: scroll;*/
+        align-items: center;
+
+        div {
+          @include displayFlex(row, center, center);
+          padding: 10px 0;
+          background-color: #ffffff00;
+          transition: 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #ffffff2e;
+          }
+
+          p {
+            min-width: 175px;
+            font-size: 16px;
+            color: $secondary;
+            font-weight: 500;
+            text-align: center;
+          }
+
+        }
+      }
+    }
+
+  }
+}
+
+.interface-wrapper{
+  width: 100%; @include displayFlex(row, center, center); margin-bottom: 30px;
+}

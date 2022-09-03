@@ -1,0 +1,83 @@
+*, html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: Calibri, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea,
+input[type=text],
+input[type=button],
+input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+body {
+  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-size: cover;
+  background-position: center center;
+  backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
+}
+
+h1 {
+  font-size: 60px;
+  color: #e5e837;
+}
+
+h3 {
+  font-size: 30px;
+  color: rgb(254, 159, 151);
+  font-weight: 400;
+  letter-spacing: 1.2px;
+}
+
+.button {
+  padding: 20px 60px;
+  background-color: #e5e837;
+  color: black;
+  transition-duration: 1s;
+  font-size: 24px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: rgb(254, 159, 151);
+  color: black;
+  transform: scale(1.1);
+}
+
+header .header-top-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 7% 0 2% 0;
+}
+header .header-bottom-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header .header-bottom-section .home-header-description {
+  margin: 15px;
+}
+
+main .main-first-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 14%;
+}
+main .main-first-section .button {
+  margin: 0 20px 0;
+}
+
+/*# sourceMappingURL=style.css.map */
