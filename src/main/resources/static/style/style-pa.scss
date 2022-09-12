@@ -20,12 +20,14 @@ input[type="submit"] {
 }
 
 body{
-  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-image: url("images/1.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center center;
   backdrop-filter: brightness(38%);
   -webkit-backdrop-filter: brightness(38%);
   -moz-backdrop-filter: brightness(38%);
+  min-height: 100vh;
 }
 
 @mixin displayFlex($direction, $justify, $align) {
@@ -48,6 +50,35 @@ a{
 
 }
 
+.small-button-text{
+  padding: 5px 20px;
+  background-color: transparent;
+  color: #e5e837;
+  transition-duration: 0.5s;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 20px 0;
+
+  &:hover{
+    background-color: rgb(254 159 151 / 40%);
+    color: #ffffff;
+  }
+}
+
+.small-button{
+  padding: 5px 20px;
+  background-color: #e5e837;
+  color: #000;
+  transition-duration: 1s;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 20px 0;
+
+  &:hover{
+    background-color: $secondary; color: $black;
+  }
+}
+
 .button{
   padding: 12px 30px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 22px; cursor: pointer; margin: 0 20px 0;
 
@@ -68,7 +99,7 @@ header{
 
   form{
 
-    @include displayFlex(column, space-between, center); background-color: $black; box-shadow: $primary 0 0 10px;
+    @include displayFlex(column, space-between, center); background-color: rgb(0 0 0 / 74%); box-shadow: #e5e8374d 0 0 10px;
     width: 510px; height: 400px; padding: 40px 40px; position: relative;
 
     .close-pop-up{
@@ -139,14 +170,23 @@ main{
     div {
       @include displayFlex(column, center, center); width: 230px;
 
-      .country-icon {
-        background-image: url("images/country.png");
+      @media (min-width: 767px) {
+        margin-bottom: 40px;
       }
-      .email-icon {
-        background-image: url("images/email.png");
+
+      @media (min-width: 1024px) {
+        margin-bottom: 50px;
       }
+
+      .shop-icon {
+        background-image: url("images/shop.png"); position: relative;
+      }
+      .orders-icon {
+        background-image: url("images/orders.png"); position: relative;
+      }
+
       .name-icon {
-        background-image: url("images/name.png");
+        background-image: url("images/name.png"); position: relative;
       }
 
       .pa-info-icon{
@@ -167,6 +207,19 @@ main{
           font-weight: 500;
           font-size: 22px;
         }
+        .before-counter {
+          position: absolute; display: none; top: -20px; right: -20px; color: rgb(118 253 165 / 100%); font-size: 20px; padding: 2px 5px;
+        }
+      }
+      .filled-text-object {
+
+        @media (min-width: 767px) {
+          mmargin-top: 10px;
+        }
+
+        @media (min-width: 1024px) {
+          margin-top: 30px;
+        }
 
       }
     }
@@ -175,5 +228,5 @@ main{
 }
 
 .interface-wrapper{
-  width: 100vw; @include displayFlex(row, center, center); margin-top: 30px;
+  width: 100vw; @include displayFlex(row, center, center); margin-top: 5%;
 }

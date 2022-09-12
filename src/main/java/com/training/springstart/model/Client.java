@@ -1,8 +1,9 @@
-package com.training.springstart.entity;
+package com.training.springstart.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,10 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     private String name;
@@ -84,4 +87,9 @@ public class Client {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+
+    public ClientDTO clientToDTO(){
+        return new ClientDTO(name, surname, email, phone_number);
+    }
+
 }

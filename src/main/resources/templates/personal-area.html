@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link href="/style/style-c-m.css" rel="stylesheet" />
+    <link href="/style/style-pa.css" rel="stylesheet" />
+    <link href="/style/style-menu.css" rel="stylesheet" />
+    <script src="/script/jquery-3.6.0.min.js"></script>
+    <script src="/script/script-cookies.js"></script>
+    <script src="/script/script-pa.js"></script>
+</head>
+<body>
+
+<header>
+
+    <div class="cookies">
+
+    </div>
+
+    <nav class="menu">
+        <div class="menu-list">
+            <a class="menu-button page-menu shop-menu" href="/shop">Shop</a>
+            <a class="menu-button page-menu cart-menu" href="/cart">Cart</a>
+        </div>
+    </nav>
+
+    <h1>HOME</h1>
+</header>
+<section class="edit-user-pop-up">
+    <form class="form register-form" action="/api/clients/update" method="post">
+        <div class="close-pop-up">&#10006</div>
+        <div class="form-group field">
+            <input type="text" class="form-field" placeholder="Name" name="name" id='name' required />
+            <label for="name" class="form-label">Name</label>
+        </div>
+        <div class="form-group field">
+            <input type="text" class="form-field" placeholder="Surname" name="surname" id='surname' required />
+            <label for="surname" class="form-label">Surname</label>
+        </div>
+        <div class="form-group field">
+            <input type="text" class="form-field" placeholder="Phone number" name="phone_number" id='phone_number' required />
+            <label for="phone_number" class="form-label">Phone number</label>
+        </div>
+        <label class="form-button-label">
+            <input id="editUser" class="button" type="submit" name="editUser" value="Save"/>
+        </label>
+    </form>
+</section>
+
+<main>
+    <div class="personal-area-info">
+        <div>
+            <p class="shop-icon pa-info-icon">
+                <span class="before-counter" id="go-shop"></span>
+            </p>
+            <!--<p>Shop</p>
+            <p class="filled-text-object"><span id="go-shop"></span></p>-->
+            <a href="/shop" class="small-button-text">Open shop</a></p>
+        </div>
+
+        <div>
+            <p class="name-icon pa-info-icon"></p>
+            <!--<p>Account</p>-->
+            <p class="filled-text-object"><span id="user-email"></span></p>
+            <p><button class="small-button-text" id="change-info">Edit info</button></p>
+        </div>
+
+        <div>
+            <p class="orders-icon pa-info-icon">
+                <span class="before-counter" id="user-orders"></span>
+            </p>
+            <!--<p>Cart</p>
+            <p class="filled-text-object"><span id="user-orders"></span></p>-->
+            <p><a href="/cart" class="small-button-text">Open cart</a></p>
+        </div>
+    </div>
+</main>
+
+<section class="interface-wrapper">
+    <form class="interface-item" action="" method="post">
+        <input id="log-out-button" class="button" type="submit" name="log-out" value="LOG OUT"/>
+    </form>
+</section>
+
+</body>
+</html>

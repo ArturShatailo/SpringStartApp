@@ -1,4 +1,4 @@
-package com.training.springstart.entity;
+package com.training.springstart.model;
 
 import lombok.*;
 
@@ -18,13 +18,23 @@ public class Order {
 
     private Integer amount;
 
-    private Integer client_id;
+    private String client_email;
 
     private String delivery_method;
 
     private String payment_method;
 
     private boolean deleted;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -50,12 +60,12 @@ public class Order {
         this.amount = amount;
     }
 
-    public Integer getClient_id() {
-        return client_id;
+    public String getClient_email() {
+        return client_email;
     }
 
-    public void setClient_id(Integer client_id) {
-        this.client_id = client_id;
+    public void setClient_email(String client_email) {
+        this.client_email = client_email;
     }
 
     public String getDelivery_method() {

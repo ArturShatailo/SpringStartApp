@@ -1,12 +1,17 @@
 package com.training.springstart.controller;
 
-import com.training.springstart.entity.Order;
+import com.training.springstart.model.ClientDTO;
+import com.training.springstart.model.Order;
 import com.training.springstart.service.CrudService;
+import com.training.springstart.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -14,7 +19,12 @@ import java.util.List;
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
 
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
+
     private final CrudService<Order> crudService;
+
+    private final OrderService orderService;
 
     //Операция сохранения в базу данных
     @PostMapping("/orders")
@@ -49,6 +59,23 @@ public class OrderController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeOrderById(@PathVariable Integer id) {
         crudService.removeById(id);
+    }
+
+    @GetMapping("/get-client-orders")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Order> getAllOrdersByClientEmail() {
+
+        HttpSession session = httpSessionFactory.getObject();
+        ClientDTO clientDTO = (ClientDTO) session.getAttribute("client");
+
+        try {
+            if (clientDTO == null || clientDTO.getEmail() == null)
+                throw new NullPointerException();
+            return orderService.getOpenByClient_email(clientDTO.getEmail());
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+            return null;
+        }
     }
 
 /*

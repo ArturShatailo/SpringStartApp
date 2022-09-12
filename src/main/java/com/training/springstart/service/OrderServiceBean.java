@@ -1,6 +1,6 @@
 package com.training.springstart.service;
 
-import com.training.springstart.entity.Order;
+import com.training.springstart.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.training.springstart.repository.OrderRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class OrderServiceBean implements CrudService<Order> {
+public class OrderServiceBean implements CrudService<Order>, OrderService {
 
     private final OrderRepository orderRepository;
 
@@ -42,7 +42,7 @@ public class OrderServiceBean implements CrudService<Order> {
                 .map(entity -> {
                     entity.setArticle(order.getArticle());
                     entity.setAmount(order.getAmount());
-                    entity.setClient_id(order.getClient_id());
+                    entity.setClient_email(order.getClient_email());
                     entity.setDelivery_method(order.getDelivery_method());
                     entity.setPayment_method(order.getPayment_method());
                     return orderRepository.save(entity);
@@ -58,6 +58,12 @@ public class OrderServiceBean implements CrudService<Order> {
                 /*.orElseThrow(ResourceWasDeletedException::new)*/;
         order.setDeleted(true);
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> getOpenByClient_email(String email) {
+        List<Order> orders = orderRepository.findOpenOrdersByClient_email(email);
+        return orders;
     }
 /*
     @Override

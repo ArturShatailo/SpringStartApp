@@ -1,8 +1,12 @@
 
 $(document).ready(function() {
 
-    //Calls function that fills html with received from database values
+    //Calls functions that fill html with received from database values
     getCurrentUserData();
+
+    getShopData();
+
+    getOrdersData();
 
     //Edit pop-up click button handler that shows or hides edit block.
     $("#change-info").click(function(){
@@ -21,20 +25,60 @@ $(document).ready(function() {
 });
 
 /**
- * Calls ajax request with GET type of to get-user servlet.
+ * Calls ajax request with GET type of to get-client Spring method.
  * Ajax receives JSON data and add these values into html tags using text() function according to the id.
  *
  * In case of error, prints it to the console.log
  */
 function getCurrentUserData() {
-    $.ajax('/get-user', {
+    $.ajax('/api/get-client', {
         type: 'GET',  // http method
         data: {},  // data to submit
         success: function (data) {
-            $('#user-name').text(data["name"]);
-            $('#user-surname').text(data["surname"]);
-            $('#user-email').text(data["email"]);
-            $('#user-country').text(data["country"]);
+            $('#user-email').text(data["name"] +" " + data["surname"]);
+        },
+        error: function () {
+            console.log("Unable to upload personal data");
+        }
+    });
+}
+
+/**
+ * Calls ajax request with GET type of to get-shop-items Spring method.
+ * Ajax receives JSON data and add these values into html tags using text() function according to the id.
+ *
+ * In case of error, prints it to the console.log
+ */
+function getShopData() {
+    $.ajax('/api/get-new-goods', {
+        type: 'GET',  // http method
+        data: {},  // data to submit
+        success: function (data) {
+            console.log(data);
+            $('#go-shop')
+                .show()
+                .text(data.length);
+        },
+        error: function () {
+            console.log("Unable to upload personal data");
+        }
+    });
+}
+
+/**
+ * Calls ajax request with GET type of to get-client Spring method.
+ * Ajax receives JSON data and add these values into html tags using text() function according to the id.
+ *
+ * In case of error, prints it to the console.log
+ */
+function getOrdersData() {
+    $.ajax('/api/get-client-orders', {
+        type: 'GET',  // http method
+        data: {},  // data to submit
+        success: function (data) {
+            $('#user-orders')
+                .show()
+                .text(data.length);
         },
         error: function () {
             console.log("Unable to upload personal data");

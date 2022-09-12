@@ -1,6 +1,7 @@
 package com.training.springstart.service;
 
-import com.training.springstart.entity.Good;
+import com.training.springstart.model.Good;
+import com.training.springstart.model.Order;
 import com.training.springstart.repository.GoodRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class GoodServiceBean implements CrudService<Good> {
+public class GoodServiceBean implements CrudService<Good>, GoodService {
 
     private final GoodRepository goodRepository;
 
@@ -55,5 +56,11 @@ public class GoodServiceBean implements CrudService<Good> {
                 .orElseThrow(() -> new EntityNotFoundException("Good not found with id = " + id));
         good.setDeleted(true);
         goodRepository.save(good);
+    }
+
+    @Override
+    public List<Good> getAllRecentlyAddedGoods(Long date) {
+        List<Good> goods = goodRepository.findRecentlyAddedGoods(date);
+        return goods;
     }
 }

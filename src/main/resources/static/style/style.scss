@@ -21,6 +21,7 @@ body{
   backdrop-filter: brightness(38%);
   -webkit-backdrop-filter: brightness(38%);
   -moz-backdrop-filter: brightness(38%);
+  min-height: 100vh;
 }
 
 @mixin displayFlex($direction, $justify, $align) {
@@ -65,6 +66,12 @@ header {
 }
 
 main {
+
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 
   .main-first-section{
     @include displayFlex(row, center, center); margin-top: 14%;

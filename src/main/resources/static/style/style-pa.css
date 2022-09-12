@@ -18,12 +18,14 @@ input[type=submit] {
 }
 
 body {
-  background-image: url("images/pexels-simon-berger-1323550.jpg");
+  background-image: url("images/1.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center center;
   backdrop-filter: brightness(38%);
   -webkit-backdrop-filter: brightness(38%);
   -moz-backdrop-filter: brightness(38%);
+  min-height: 100vh;
 }
 
 h1 {
@@ -39,6 +41,34 @@ a {
 }
 a:hover {
   color: #fff;
+}
+
+.small-button-text {
+  padding: 5px 20px;
+  background-color: transparent;
+  color: #e5e837;
+  transition-duration: 0.5s;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 20px 0;
+}
+.small-button-text:hover {
+  background-color: rgba(254, 159, 151, 0.4);
+  color: #ffffff;
+}
+
+.small-button {
+  padding: 5px 20px;
+  background-color: #e5e837;
+  color: #000;
+  transition-duration: 1s;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 20px 0;
+}
+.small-button:hover {
+  background-color: rgb(254, 159, 151);
+  color: #000;
 }
 
 .button {
@@ -84,8 +114,8 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
-  box-shadow: #e5e837 0 0 10px;
+  background-color: rgba(0, 0, 0, 0.74);
+  box-shadow: rgba(229, 232, 55, 0.3019607843) 0 0 10px;
   width: 510px;
   height: 400px;
   padding: 40px 40px;
@@ -199,14 +229,27 @@ main .personal-area-info div {
   align-items: center;
   width: 230px;
 }
-main .personal-area-info div .country-icon {
-  background-image: url("images/country.png");
+@media (min-width: 767px) {
+  main .personal-area-info div {
+    margin-bottom: 40px;
+  }
 }
-main .personal-area-info div .email-icon {
-  background-image: url("images/email.png");
+@media (min-width: 1024px) {
+  main .personal-area-info div {
+    margin-bottom: 50px;
+  }
+}
+main .personal-area-info div .shop-icon {
+  background-image: url("images/shop.png");
+  position: relative;
+}
+main .personal-area-info div .orders-icon {
+  background-image: url("images/orders.png");
+  position: relative;
 }
 main .personal-area-info div .name-icon {
   background-image: url("images/name.png");
+  position: relative;
 }
 main .personal-area-info div .pa-info-icon {
   width: 80px;
@@ -225,6 +268,25 @@ main .personal-area-info div p span {
   font-weight: 500;
   font-size: 22px;
 }
+main .personal-area-info div p .before-counter {
+  position: absolute;
+  display: none;
+  top: -20px;
+  right: -20px;
+  color: rgb(118, 253, 165);
+  font-size: 20px;
+  padding: 2px 5px;
+}
+@media (min-width: 767px) {
+  main .personal-area-info div .filled-text-object {
+    mmargin-top: 10px;
+  }
+}
+@media (min-width: 1024px) {
+  main .personal-area-info div .filled-text-object {
+    margin-top: 30px;
+  }
+}
 
 .interface-wrapper {
   width: 100vw;
@@ -232,7 +294,7 @@ main .personal-area-info div p span {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 5%;
 }
 
 /*# sourceMappingURL=style-pa.css.map */

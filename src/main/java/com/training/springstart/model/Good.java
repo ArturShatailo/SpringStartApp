@@ -1,10 +1,12 @@
-package com.training.springstart.entity;
+package com.training.springstart.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "goods")
@@ -23,9 +25,29 @@ public class Good {
 
     private Double price;
 
+    private Integer amount;
+
     private String article;
 
     private boolean deleted;
+
+    private Long added_date_time = new Date().getTime();
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Long getAdded_date_time() {
+        return added_date_time;
+    }
+
+    public void setAdded_date_time(Long added_date_time) {
+        this.added_date_time = added_date_time;
+    }
 
     public void setId(Integer id) {
         this.id = id;

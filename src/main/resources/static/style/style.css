@@ -24,6 +24,7 @@ body {
   backdrop-filter: brightness(38%);
   -webkit-backdrop-filter: brightness(38%);
   -moz-backdrop-filter: brightness(38%);
+  min-height: 100vh;
 }
 
 h1 {
@@ -69,6 +70,13 @@ header .header-bottom-section .home-header-description {
   margin: 15px;
 }
 
+main {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
 main .main-first-section {
   display: flex;
   flex-direction: row;
