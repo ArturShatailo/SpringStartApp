@@ -25,6 +25,4 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
              @Param("surname") String surname,
              @Param("phone_number") String phone_number,
              @Param("email") String email);
-
-
 }

@@ -2,10 +2,7 @@ package com.training.springstart.controller;
 
 import com.training.springstart.model.Client;
 import com.training.springstart.model.ClientDTO;
-import com.training.springstart.service.AuthLoginServiceBean;
-import com.training.springstart.service.CookieFactory;
-import com.training.springstart.service.CrudService;
-import com.training.springstart.service.LoginRegisterService;
+import com.training.springstart.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +30,16 @@ public class RegisterController implements CookieFactory {
     @PostMapping("/client-register")
     //@ResponseStatus(HttpStatus.CREATED)
     public String saveClient(Client client, @RequestParam String passwordRepeat, HttpServletResponse response) {
-        Client c = loginRegisterService.registerClient(client);
+
+        AuthRegisterServiceBean a =
+                new AuthRegisterServiceBean(client.getName(), client.getSurname(), client.getEmail(), client.getPhone_number(), client.getPassword());
+        if (!a.startCheck()) return unsuccessfullyRegister(a.getRequest(), response);
 
         if (!client.getPassword().equals(passwordRepeat))
             return unsuccessfullyRegister("Password id not the same as repeated password", response);
+
+        Client c = loginRegisterService.registerClient(client);
+
         if (c == null)
             return unsuccessfullyRegister("Unable to register a new account with this email", response);
 
