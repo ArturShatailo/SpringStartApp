@@ -1,8 +1,11 @@
-package com.training.springstart.service;
+package com.training.springstart.service.client;
 
-import com.training.springstart.model.ClientDTO;
 import com.training.springstart.model.Client;
+import com.training.springstart.model.dto.ClientAreaViewDTO;
+import com.training.springstart.model.dto.ClientChangePassDTO;
 import com.training.springstart.repository.ClientRepository;
+import com.training.springstart.service.CrudService;
+import com.training.springstart.util.mapper.ClientMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.EntityNotFoundException;
@@ -11,9 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class ClientServiceBean implements CrudService<Client>, LoginRegisterService, UpdateDataService {
+public class ClientServiceBean implements CrudService<Client>, GetClientByValueService, LoginRegisterService, UpdateDataService {
 
     private ClientRepository clientRepository;
+
+    private ClientMapper clientConverter;
 
     @Override
     public Client create(Client client) {
@@ -59,13 +64,39 @@ public class ClientServiceBean implements CrudService<Client>, LoginRegisterServ
     }
 
     @Override
-    public int updateByEmail(ClientDTO c) {
-        return clientRepository
+    public ClientAreaViewDTO updateByEmail(String email, String name, String surname, String phone_number) {
+        int status = clientRepository
                 .updateClientByEmail(
-                        c.getName(),
-                        c.getSurname(),
-                        c.getPhone_number(),
-                        c.getEmail());
+                        name,
+                        surname,
+                        phone_number,
+                        email);
+
+        Client client = new Client();
+        client.setName(name);
+        client.setEmail(email);
+        client.setSurname(surname);
+        client.setPhone_number(phone_number);
+
+        return status > 0
+                ? clientConverter.toAreaViewDTO(client)
+                : null;
+    }
+
+    @Override
+    public ClientChangePassDTO updatePasswordByEmail(String email, String password) {
+        int status = clientRepository
+                .updateClientPassByEmail(
+                        password,
+                        email);
+
+        Client client = new Client();
+        client.setEmail(email);
+        client.setPassword(password);
+
+        return status > 0
+                ? clientConverter.toChangePassDTO(client)
+                : null;
     }
 
     @Override
@@ -78,14 +109,14 @@ public class ClientServiceBean implements CrudService<Client>, LoginRegisterServ
     }
 
     @Override
-    public ClientDTO loginClient(String email, String password) {
+    public ClientAreaViewDTO loginClient(String email, String password) {
         return comparePassword(email, password);
     }
 
-    public ClientDTO comparePassword(String email, String password) {
+    public ClientAreaViewDTO comparePassword(String email, String password) {
         Client client = getByEmail(email);
         if (client.getPassword().equals(password)) {
-            return client.clientToDTO();
+            return clientConverter.toAreaViewDTO(client);
         } else {
             return null;
             //throw new EntityNotFoundException("Login is failed with email " + email);

@@ -1,8 +1,8 @@
-package com.training.springstart.service;
+package com.training.springstart.service.good;
 
 import com.training.springstart.model.Good;
-import com.training.springstart.model.Order;
 import com.training.springstart.repository.GoodRepository;
+import com.training.springstart.service.CrudService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

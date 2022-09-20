@@ -2,7 +2,7 @@ package com.training.springstart.controller;
 
 import com.training.springstart.model.Good;
 import com.training.springstart.service.CrudService;
-import com.training.springstart.service.GoodService;
+import com.training.springstart.service.good.GoodService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

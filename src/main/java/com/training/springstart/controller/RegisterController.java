@@ -1,12 +1,12 @@
 package com.training.springstart.controller;
 
 import com.training.springstart.model.Client;
-import com.training.springstart.model.ClientDTO;
 import com.training.springstart.service.*;
+import com.training.springstart.service.auth.AuthRegisterServiceBean;
+import com.training.springstart.service.client.LoginRegisterService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

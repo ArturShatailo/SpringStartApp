@@ -1,8 +1,10 @@
-package com.training.springstart.service;
+package com.training.springstart.service.auth;
 
-import lombok.AllArgsConstructor;
+import com.training.springstart.service.auth.AuthLoginService;
+import lombok.extern.slf4j.Slf4j;
 
-public class AuthLoginServiceBean implements AuthLoginService{
+@Slf4j
+public class AuthLoginServiceBean implements AuthLoginService {
 
     private final String email;
 

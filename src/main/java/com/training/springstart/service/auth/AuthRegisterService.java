@@ -1,4 +1,4 @@
-package com.training.springstart.service;
+package com.training.springstart.service.auth;
 
 public interface AuthRegisterService extends AuthService{
 

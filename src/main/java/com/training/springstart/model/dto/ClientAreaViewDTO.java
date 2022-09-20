@@ -1,13 +1,11 @@
-package com.training.springstart.model;
+package com.training.springstart.model.dto;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 @ToString
-public class ClientDTO {
+public class ClientAreaViewDTO {
 
     private String name;
 

@@ -1,4 +1,4 @@
-package com.training.springstart.service;
+package com.training.springstart.service.good;
 
 import com.training.springstart.model.Good;
 

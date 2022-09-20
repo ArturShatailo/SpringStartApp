@@ -1,9 +1,11 @@
 package com.training.springstart.controller;
 
 import com.training.springstart.model.Client;
-import com.training.springstart.model.ClientDTO;
+import com.training.springstart.model.dto.ClientAreaViewDTO;
+import com.training.springstart.model.dto.ClientChangePassDTO;
 import com.training.springstart.service.CrudService;
-import com.training.springstart.service.UpdateDataService;
+import com.training.springstart.service.client.GetClientByValueService;
+import com.training.springstart.service.client.UpdateDataService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class ClientsController {
 
     @Autowired
     ObjectFactory<HttpSession> httpSessionFactory;
+
+
+    private final GetClientByValueService getClientByValueService;
+
     private final CrudService<Client> crudService;
 
     private final UpdateDataService updateData;
@@ -55,13 +61,31 @@ public class ClientsController {
 
     @PostMapping("/clients/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public String updateClient(@RequestParam String name, @RequestParam String surname, @RequestParam String phone_number) {
+    public ClientAreaViewDTO updateClient(@RequestParam String name, @RequestParam String surname, @RequestParam String phone_number, HttpServletResponse response) throws IOException {
         HttpSession session = httpSessionFactory.getObject();
         String email = (String) session.getAttribute("email");
-        ClientDTO c = new ClientDTO(name, surname, email, phone_number);
 
-        int status = updateData.updateByEmail(c);
-        return "redirect:/personal-area";
+        ClientAreaViewDTO c = updateData.updateByEmail(email, name, surname, phone_number);
+        if (c != null) session.setAttribute("client", c);
+
+        response.sendRedirect("/personal-area");
+        return c;
+//        int status = updateData.updateByEmail(client);
+//        return "redirect:/personal-area";
+    }
+
+    @PostMapping("/clients/updatePassword")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void updateClientPassword(@RequestParam String newPassword, @RequestParam String newPasswordRepeat, HttpServletResponse response) throws IOException {
+        HttpSession session = httpSessionFactory.getObject();
+        String email = (String) session.getAttribute("email");
+        //Client client = getClientByValueService.getByEmail(email);
+
+        updateData.updatePasswordByEmail(email, newPassword);
+
+        response.sendRedirect("/personal-area");
+//        int status = updateData.updateByEmail(client);
+//        return "redirect:/personal-area";
     }
 
     @PatchMapping("/clients/{id}")
@@ -72,18 +96,18 @@ public class ClientsController {
 
     @GetMapping("/get-client")
     @ResponseStatus(HttpStatus.OK)
-    public ClientDTO getClientByEmail(HttpServletResponse response) throws IOException {
+    public ClientAreaViewDTO checkClientBySession(HttpServletResponse response) throws IOException {
         HttpSession session = httpSessionFactory.getObject();
-        ClientDTO clientDTO = (ClientDTO) session.getAttribute("client");
+        ClientAreaViewDTO clientAreaViewDTO = (ClientAreaViewDTO) session.getAttribute("client");
         try {
-            if (clientDTO == null) throw new NullPointerException();
+            if (clientAreaViewDTO == null) throw new NullPointerException();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             //setCookie(response, "errorMessage", "You are not logged in", 5);
             response.sendRedirect("/login.html");
         }
 
-        return clientDTO;
+        return clientAreaViewDTO;
     }
 
 }

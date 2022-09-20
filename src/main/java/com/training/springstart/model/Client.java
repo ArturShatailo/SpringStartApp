@@ -88,8 +88,8 @@ public class Client {
         this.deleted = deleted;
     }
 
-    public ClientDTO clientToDTO(){
-        return new ClientDTO(name, surname, email, phone_number);
-    }
+    //public ClientDTO clientToDTO(){
+        //return new ClientDTO(name, surname, email, phone_number);
+    //}
 
 }

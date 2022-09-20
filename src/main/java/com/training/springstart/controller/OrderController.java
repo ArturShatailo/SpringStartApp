@@ -1,9 +1,9 @@
 package com.training.springstart.controller;
 
-import com.training.springstart.model.ClientDTO;
 import com.training.springstart.model.Order;
+import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.service.CrudService;
-import com.training.springstart.service.OrderService;
+import com.training.springstart.service.order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +66,12 @@ public class OrderController {
     public List<Order> getAllOrdersByClientEmail() {
 
         HttpSession session = httpSessionFactory.getObject();
-        ClientDTO clientDTO = (ClientDTO) session.getAttribute("client");
+        ClientAreaViewDTO clientAreaViewDTO = (ClientAreaViewDTO) session.getAttribute("client");
 
         try {
-            if (clientDTO == null || clientDTO.getEmail() == null)
+            if (clientAreaViewDTO == null || clientAreaViewDTO.getEmail() == null)
                 throw new NullPointerException();
-            return orderService.getOpenByClient_email(clientDTO.getEmail());
+            return orderService.getOpenByClient_email(clientAreaViewDTO.getEmail());
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             return null;

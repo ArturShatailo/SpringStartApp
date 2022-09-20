@@ -25,4 +25,11 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
              @Param("surname") String surname,
              @Param("phone_number") String phone_number,
              @Param("email") String email);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Client c SET c.password = :password WHERE c.email = :email")
+    int updateClientPassByEmail
+            (@Param("password") String password,
+             @Param("email") String email);
 }
