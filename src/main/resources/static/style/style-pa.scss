@@ -154,7 +154,7 @@ header{
 }
 
 main{
-  @include displayFlex(column, center, center); padding: 5% 0; width: 100vw;
+  @include displayFlex(column, center, center); padding: 0 0; width: 100vw; min-height: 70vh;
 
   .personal-area-info{
      flex-wrap: wrap;
@@ -225,8 +225,4 @@ main{
     }
   }
 
-}
-
-.interface-wrapper{
-  width: 100vw; @include displayFlex(row, center, center); margin-top: 5%;
 }

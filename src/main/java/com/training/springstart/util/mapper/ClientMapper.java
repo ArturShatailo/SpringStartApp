@@ -1,6 +1,8 @@
 package com.training.springstart.util.mapper;
 
 import com.training.springstart.model.Client;
+import com.training.springstart.model.ClientAdmin;
+import com.training.springstart.model.dto.ClientAdminDTO;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.model.dto.ClientChangePassDTO;
 import org.mapstruct.InjectionStrategy;
@@ -16,4 +18,8 @@ public interface ClientMapper {
     ClientChangePassDTO toChangePassDTO(Client object);
 
     Client toObject(ClientChangePassDTO dto);
+
+    ClientAdminDTO toClientAdminDTO (ClientAdmin clientAdmin);
+
+    ClientAdmin toObject(ClientAdminDTO dto);
 }

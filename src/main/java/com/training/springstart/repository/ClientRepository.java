@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Repository
@@ -32,4 +33,14 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
     int updateClientPassByEmail
             (@Param("password") String password,
              @Param("email") String email);
+
+    @Query(value = "SELECT * FROM clients c WHERE phone_number LIKE ?% AND deleted=false", nativeQuery = true)
+    List<Client> findClientsByPhoneCode(String phone_code);
+
+
+    @Query(value = "SELECT * FROM clients c WHERE deleted=false", nativeQuery = true)
+    List<Client> findAllNotDeleted();
+
+
+
 }

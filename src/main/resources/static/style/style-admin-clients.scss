@@ -50,7 +50,7 @@ a{
 }
 
 .button{
-  padding: 5px 15px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 14px; cursor: pointer; margin: 0 20px 0;
+  padding: 8px 20px; background-color: $primary; color: $black; transition-duration: 1s; font-size: 18px; cursor: pointer; margin: 0 20px 0;
 
   &:hover{
     background-color: $secondary; color: $black; transform: scale(1.1);
@@ -58,8 +58,12 @@ a{
 
 }
 
-.button-logout{
-  padding: 12px 30px; background-color: transparent; color: $secondary; font-size: 22px; cursor: pointer; margin: 0 20px 0;
+.search-button{
+  padding: 8px 20px; font-size: 18px;
+}
+
+.table-button{
+  padding: 5px 15px; font-size: 14px;
 }
 
 header{
@@ -141,7 +145,7 @@ main {
         /*overflow-x: scroll;*/
         align-items: center;
 
-        div {
+        .client-record {
           @include displayFlex(row, center, center);
           padding: 10px 0;
           background-color: #ffffff00;
@@ -158,6 +162,11 @@ main {
             color: $secondary;
             font-weight: 500;
             text-align: center;
+          }
+
+          .table-action-wrapper{
+            min-width: 175px;
+            @include displayFlex(row, center, center);
           }
 
         }

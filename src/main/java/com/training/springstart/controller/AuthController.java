@@ -4,7 +4,7 @@ package com.training.springstart.controller;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.service.auth.AuthLoginServiceBean;
 import com.training.springstart.service.CookieFactory;
-import com.training.springstart.service.client.LoginRegisterService;
+import com.training.springstart.service.client.ClientServiceBean;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Controller;
@@ -20,9 +20,9 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping(value = "/api")
 public class AuthController implements CookieFactory {
 
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
-    private final LoginRegisterService loginRegisterService;
+    private final ClientServiceBean clientServiceBean;
 
     /*@PostMapping("/client-login")
     @ResponseStatus(HttpStatus.OK)
@@ -33,7 +33,7 @@ public class AuthController implements CookieFactory {
     @PostMapping("/client-login")
     public String checkClient(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
         AuthLoginServiceBean b = new AuthLoginServiceBean(email, password);
-        ClientAreaViewDTO c = loginRegisterService.loginClient(email, password);
+        ClientAreaViewDTO c = clientServiceBean.loginClient(email, password);
 
         if ( c == null ) return unsuccessfullyLoggedIn("Wrong email or password", response);
 

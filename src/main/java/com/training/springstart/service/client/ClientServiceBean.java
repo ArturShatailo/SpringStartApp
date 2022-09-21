@@ -14,11 +14,19 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class ClientServiceBean implements CrudService<Client>, GetClientByValueService, LoginRegisterService, UpdateDataService {
+public class ClientServiceBean implements CrudService<Client>, ClientsPhoneService, GetClientByValueService, LoginRegisterService, UpdateDataService {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    private ClientMapper clientConverter;
+    private final ClientMapper clientConverter;
+
+    @Override
+    public List<Client> findClientsByPhoneCode(String phone_code) {
+        List<Client> clients = clientRepository.findClientsByPhoneCode(phone_code);
+        clients.forEach(c -> System.err.println(c.getName() + ", dobroho vechora, my is Ukrainy"));
+
+        return clients;
+    }
 
     @Override
     public Client create(Client client) {
@@ -28,6 +36,11 @@ public class ClientServiceBean implements CrudService<Client>, GetClientByValueS
     @Override
     public List<Client> getAll() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public List<Client> getAllNotDeleted() {
+        return clientRepository.findAllNotDeleted();
     }
 
     @Override
@@ -115,7 +128,7 @@ public class ClientServiceBean implements CrudService<Client>, GetClientByValueS
 
     public ClientAreaViewDTO comparePassword(String email, String password) {
         Client client = getByEmail(email);
-        if (client.getPassword().equals(password)) {
+        if (client != null && client.getPassword().equals(password)) {
             return clientConverter.toAreaViewDTO(client);
         } else {
             return null;

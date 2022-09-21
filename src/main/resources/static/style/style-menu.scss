@@ -1,8 +1,26 @@
+$primary: #e5e837;
+$secondary: rgb(254 159 151);
+$white: #fff;
+$black: #000;
+
 .menu{
   width: 95vw; padding: 20px;
 
   .menu-list{
     display: flex; justify-content: left; align-items: center;
+
+    .interface-item{
+
+      .button-menu{
+        padding: 8px 20px; background-color: #e5e83761; color: $black; transition-duration: 1s; font-size: 22px; cursor: pointer; margin: 0 20px 0;
+
+        &:hover{
+          background-color: $secondary; color: $black; transform: scale(1.1);
+        }
+
+      }
+
+    }
 
     .menu-button{
       font-size: 20px;

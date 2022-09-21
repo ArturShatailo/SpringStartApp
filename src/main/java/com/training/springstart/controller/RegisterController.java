@@ -21,8 +21,7 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping(value = "/api")
 public class RegisterController implements CookieFactory {
 
-    @Autowired
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
     private final LoginRegisterService loginRegisterService;
 

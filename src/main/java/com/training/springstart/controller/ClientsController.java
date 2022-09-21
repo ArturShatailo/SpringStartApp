@@ -2,10 +2,11 @@ package com.training.springstart.controller;
 
 import com.training.springstart.model.Client;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
-import com.training.springstart.model.dto.ClientChangePassDTO;
-import com.training.springstart.service.CrudService;
-import com.training.springstart.service.client.GetClientByValueService;
-import com.training.springstart.service.client.UpdateDataService;
+import com.training.springstart.service.client.ClientServiceBean;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,41 +23,55 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Client", description = "Client API")
 public class ClientsController {
 
-    @Autowired
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
+    private final ClientServiceBean clientServiceBean;
 
-    private final GetClientByValueService getClientByValueService;
-
-    private final CrudService<Client> crudService;
-
-    private final UpdateDataService updateData;
+    @Operation(summary = "This is endpoint to find clients by phone code.", description = "Create request to find clients by phone code.", tags = {"Clients list"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "FOUND. The client has been successfully found in database."),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND. Specified client request not found."),
+            @ApiResponse(responseCode = "409", description = "")})
+    //@GetMapping("/clients/phones/{phone_code}")
+    @GetMapping(value = "/clients/phones", params = {"phone_code"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<Client> getClientsByPhoneCodes(@RequestParam String phone_code) {
+        return clientServiceBean.findClientsByPhoneCode(phone_code);
+    }
 
     @PostMapping("/clients/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Client saveClient(/*@RequestBody*/ Client client, HttpServletResponse response) {
         response.addCookie(new Cookie("successMessage", "value"));
-        return crudService.create(client);
+        return clientServiceBean.create(client);
     }
 
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getAllClients() {
-        return crudService.getAll();
+        return clientServiceBean.getAll();
+    }
+
+    @GetMapping("/clients/active")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Client> getNotDeletedClients() {
+        return clientServiceBean.getAllNotDeleted();
     }
 
     @GetMapping("/clients/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Client getClientById(@PathVariable("id") Integer id) {
-        return crudService.getById(id);
+        return clientServiceBean.getById(id);
     }
 
     @PutMapping("/clients/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Client refreshClient(@PathVariable("id") Integer id, @RequestBody Client client) {
-        return crudService.updateById(id, client);
+        return clientServiceBean.updateById(id, client);
     }
 
     @PostMapping("/clients/update")
@@ -65,7 +80,7 @@ public class ClientsController {
         HttpSession session = httpSessionFactory.getObject();
         String email = (String) session.getAttribute("email");
 
-        ClientAreaViewDTO c = updateData.updateByEmail(email, name, surname, phone_number);
+        ClientAreaViewDTO c = clientServiceBean.updateByEmail(email, name, surname, phone_number);
         if (c != null) session.setAttribute("client", c);
 
         response.sendRedirect("/personal-area");
@@ -81,7 +96,7 @@ public class ClientsController {
         String email = (String) session.getAttribute("email");
         //Client client = getClientByValueService.getByEmail(email);
 
-        updateData.updatePasswordByEmail(email, newPassword);
+        clientServiceBean.updatePasswordByEmail(email, newPassword);
 
         response.sendRedirect("/personal-area");
 //        int status = updateData.updateByEmail(client);
@@ -91,7 +106,7 @@ public class ClientsController {
     @PatchMapping("/clients/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeClientById(@PathVariable("id") Integer id) {
-        crudService.removeById(id);
+        clientServiceBean.removeById(id);
     }
 
     @GetMapping("/get-client")

@@ -4,10 +4,8 @@ import com.training.springstart.model.Client;
 
 import java.util.List;
 
-public interface GetClientByValueService {
+public interface ClientsPhoneService {
 
-    Client getByEmail(String email);
-
-    List<Client> getAllNotDeleted();
+    List<Client> findClientsByPhoneCode(String phone_code);
 
 }

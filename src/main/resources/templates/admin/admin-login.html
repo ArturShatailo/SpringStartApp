@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Main page</title>
+  <link href="/style/style-c-m.css" rel="stylesheet" />
+  <link href="/style/style-login.css" rel="stylesheet" />
+  <script src="/script/jquery-3.6.0.min.js"></script>
+  <script src="/script/script-cookies.js"></script>
+</head>
+<body>
+
+<header>
+
+  <div class="cookies">
+
+  </div>
+
+  <h1>LOGIN</h1>
+</header>
+
+<main>
+  <form class="form login-form" action="/control/admin-login" method="post">
+    <div class="form-group field">
+      <input type="text" class="form-field" placeholder="Login" name="email" id='email' required />
+      <label for="email" class="form-label">Login</label>
+    </div>
+    <div class="form-group field">
+      <input type="password" class="form-field" placeholder="Password" name="password" id='password' required />
+      <label for="password" class="form-label">Password</label>
+    </div>
+    <label class="form-button-label">
+      <input class="button" type="submit" name="signup" value="Login"/>
+    </label>
+  </form>
+</main>
+
+</body>
+</html>
