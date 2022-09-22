@@ -10,6 +10,6 @@ public interface ClientsPhoneService {
 
     List<Client> findClientsByPhoneCode(String phone_code);
 
-    List<Client> findClientsPageByPhoneCode(String phone_code);
+    Page<Client> findClientsPageByPhoneCode(String phone_code);
 
 }

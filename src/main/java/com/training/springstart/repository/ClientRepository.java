@@ -42,8 +42,8 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
     List<Client> findAllNotDeleted();
 
     //@Query(value = "select c from Client c where c.phone_number LIKE ':phone_code%' AND c.deleted=false")
-    @Query(value = "SELECT * FROM clients", nativeQuery = true)
-    List<Client> findPP(String phone_code, Pageable pageable);
+    @Query(value = "SELECT * FROM clients c WHERE c.phone_number LIKE ?1% AND deleted=false", nativeQuery = true)
+    Page<Client> findPP(String phone_code, Pageable pageable);
 
     //Page<Client> findClientByPhone_numberStartingWith(String phone_code, Pageable pageable);
 

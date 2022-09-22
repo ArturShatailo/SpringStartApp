@@ -141,7 +141,7 @@ public class ClientsController {
 
     @GetMapping(value = "/clients/table/p")
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> getClientsPageByPhoneCode(@RequestParam String phone_code) {
+    public Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code) {
         log.info("Start method getClientsPageByPhoneCode with parameter {}", phone_code);
         return clientServiceBean.findClientsPageByPhoneCode(phone_code);
     }

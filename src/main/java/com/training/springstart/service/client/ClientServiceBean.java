@@ -168,13 +168,10 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public List<Client> findClientsPageByPhoneCode(String phone_code) {
+    public Page<Client> findClientsPageByPhoneCode(String phone_code) {
         Pageable pageable = PageRequest.of(0, 5, Sort.by("id").ascending());
-        //return clientRepository.findPP(phone_code, pageable);
-        return clientRepository.findPP(phone_code, pageable)
-                .stream()
-                .filter(c -> c.getPhone_number().startsWith("546"))
-                .collect(Collectors.toList());
+        return clientRepository.findPP(phone_code, pageable);
+
 
     }
 
