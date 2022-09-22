@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
@@ -165,5 +166,17 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public List<Client> findClientsPageByPhoneCode(String phone_code) {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by("id").ascending());
+        //return clientRepository.findPP(phone_code, pageable);
+        return clientRepository.findPP(phone_code, pageable)
+                .stream()
+                .filter(c -> c.getPhone_number().startsWith("546"))
+                .collect(Collectors.toList());
+
+    }
+
 
 }

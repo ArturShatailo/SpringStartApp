@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -134,5 +137,15 @@ public class ClientsController {
         PagingEntity pagingEntity = new PagingEntity(page, size, sort);
         return clientServiceBean.getPageAllNotDeleted(pagingEntity);
     }
+
+
+    @GetMapping(value = "/clients/table/p")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Client> getClientsPageByPhoneCode(@RequestParam String phone_code) {
+        log.info("Start method getClientsPageByPhoneCode with parameter {}", phone_code);
+        return clientServiceBean.findClientsPageByPhoneCode(phone_code);
+    }
+
+
 
 }
