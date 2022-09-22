@@ -28,6 +28,11 @@ public class AdminWebController {
         return "/admin/clients";
     }
 
+    @RequestMapping(value = "/orders")
+    public String ordersAdminController() {
+        return "/admin/orders";
+    }
+
     @GetMapping(value = "/admin-area")
     public String greetingController(Model model) {
 

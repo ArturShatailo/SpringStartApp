@@ -1,6 +1,5 @@
 package com.training.springstart.controller;
 
-
 import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.service.auth.AuthLoginServiceBean;
 import com.training.springstart.service.CookieFactory;
@@ -42,13 +41,6 @@ public class AuthController implements CookieFactory {
                 : unsuccessfullyLoggedIn(b.getRequest(), response);
     }
 
-    @Override
-    public void setCookie(HttpServletResponse R, String n, String v, int d) {
-        Cookie cookie = new Cookie(n, URLEncoder.encode(v, StandardCharsets.UTF_8));
-        cookie.setMaxAge(d);
-        R.addCookie(cookie);
-    }
-
     private String unsuccessfullyLoggedIn(String m, HttpServletResponse response) {
         setCookie(response, "errorMessage", m, 5);
         return "redirect:/login";
@@ -60,6 +52,13 @@ public class AuthController implements CookieFactory {
         session.setAttribute("email", c.getEmail());
         setCookie(response, "successfulMessage", "Successfully logged in", 5);
         return "redirect:/personal-area";
+    }
+
+    @Override
+    public void setCookie(HttpServletResponse R, String n, String v, int d) {
+        Cookie cookie = new Cookie(n, URLEncoder.encode(v, StandardCharsets.UTF_8));
+        cookie.setMaxAge(d);
+        R.addCookie(cookie);
     }
 
 

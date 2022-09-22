@@ -1,3 +1,8 @@
+$primary: #e5e837;
+$secondary: rgb(254 159 151);
+$white: #fff;
+$black: #000;
+
 *, html, body{
   margin: 0; padding: 0; border: none; font-family: Calibri, sans-serif;
 }
@@ -23,6 +28,8 @@ body{
   -moz-backdrop-filter: brightness(38%);
   min-height: 100vh;
 }
+
+
 
 @mixin displayFlex($direction, $justify, $align) {
     display: flex;

@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <title>Clients panel</title>
     <link href="/style/style-c-m.css" rel="stylesheet" />
-    <link href="/style/style-admin-clients.css" rel="stylesheet" />
+    <link href="/style/style-admin-orders.css" rel="stylesheet" />
     <link href="/style/style-menu.css" rel="stylesheet" />
     <link href="/style/style-autofill.css" rel="stylesheet" />
     <link href="/style/style-scrollbar.css" rel="stylesheet" />
 
     <script src="/script/jquery-3.6.0.min.js"></script>
     <script src="/script/script-cookies.js"></script>
-    <script src="/script/script-admin-clients.js"></script>
+    <script src="/script/script-admin-orders.js"></script>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
             </form>
             <a class="menu-button page-menu shop-menu" href="admin-area.html">Dashboard</a>
             <a class="menu-button page-menu cart-menu" href="/admin/goods">Goods</a>
-            <a class="menu-button page-menu cart-menu" href="/admin/orders">Orders</a>
+            <a class="menu-button page-menu cart-menu" href="/admin/clients">Orders</a>
         </div>
     </nav>
 
@@ -47,25 +47,26 @@
         <div class="display-scroll-wrapper">
             <div class="table-titles-section">
                 <div>
-                    <p>Name</p>
-                    <p>Surname</p>
-                    <p>Phone number</p>
-                    <p>Email</p>
-                    <p>Password</p>
-                    <p>Action</p>
+                    <p>ID</p>
+                    <p>Article</p>
+                    <p>Amount</p>
+                    <p>Client email</p>
+                    <p>Delivery</p>
+                    <p>Payment</p>
+                    <p>Status</p>
                 </div>
             </div>
-            <div class="display-clients-section content-table-inner"></div>
+            <div class="display-orders-section content-table-inner"></div>
         </div>
-        <div class="pagination" id="pagination-clients-section">
-            <div class="prev-clients-page" data-target="prev">&laquo;</div>
-            <div class="clients-page active-page" data-target="0">1</div>
-            <div class="clients-page" data-target="1">2</div>
-            <div class="clients-page" data-target="2">3</div>
-            <div class="clients-page" data-target="3">4</div>
-            <div class="clients-page" data-target="4">5</div>
-            <div class="clients-page" data-target="5">6</div>
-            <div class="next-clients-page" data-target="next">&raquo;</div>
+        <div class="pagination" id="pagination-orders-section">
+            <div class="prev-orders-page" data-target="prev">&laquo;</div>
+            <div class="orders-page active-page" data-target="0">1</div>
+            <div class="orders-page" data-target="1">2</div>
+            <div class="orders-page" data-target="2">3</div>
+            <div class="orders-page" data-target="3">4</div>
+            <div class="orders-page" data-target="4">5</div>
+            <div class="orders-page" data-target="5">6</div>
+            <div class="next-orders-page" data-target="next">&raquo;</div>
         </div>
 
     </section>

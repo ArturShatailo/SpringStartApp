@@ -5,26 +5,26 @@ $(document).ready(function() {
     //Calls function that fills html with received from database values
     //getClientsData();
 
-    showClientsPageResult(0);
+    showOrdersPageResult(0);
 
     $(document).on('click', function (e){
         e.preventDefault();
         let _this = e.target;
-        if(_this.matches("#deleteClient")){
-            deleteUser($( _this ).attr("clientid"));
-        }
+        /*if(_this.matches("#deleteOrder")){
+            deleteUser($( _this ).attr("orderid"));
+        }*/
 
-        if(_this.matches(".clients-page")){
+        if(_this.matches(".orders-page")){
             $( _this )
                 .addClass("active-page")
                 .siblings()
                 .removeClass("active-page");
-            showClientsPageResult( Number($( _this ).attr("data-target")) );
+            showOrdersPageResult( Number($( _this ).attr("data-target")) );
         }
 
-        if(_this.matches(".next-clients-page")){
+        if(_this.matches(".next-orders-page")){
             let activeAttribute = Number($(".active-page").attr("data-target"));
-            let potentialCandidate = $(".clients-page[data-target = '" + (activeAttribute + 1) + "']");
+            let potentialCandidate = $(".orders-page[data-target = '" + (activeAttribute + 1) + "']");
 
             if (potentialCandidate) {
                 potentialCandidate
@@ -34,9 +34,9 @@ $(document).ready(function() {
             }
         }
 
-        if(_this.matches(".prev-clients-page")){
+        if(_this.matches(".prev-orders-page")){
             let activeAttribute = Number($(".active-page").attr("data-target"));
-            let potentialCandidate = $(".clients-page[data-target = '" + (activeAttribute - 1) + "']");
+            let potentialCandidate = $(".orders-page[data-target = '" + (activeAttribute - 1) + "']");
 
             if (potentialCandidate) {
                 potentialCandidate
@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 });
 
-function showClientsPageResult(page) {
+function showOrdersPageResult(page) {
 
     /*const pagingEntity =
         {
@@ -65,19 +65,19 @@ function showClientsPageResult(page) {
             sort: "id"
         };*/
 
-    $.ajax("/api/clients/table/", {
+    $.ajax("/api/orders/table/", {
         type: 'GET',  // http method
         data: {
             page: page,
-            size: 5,
+            size: 1,
             sort: "id"
         },
         dataType: "json", // data to submit
         success: function (data) {
-            clearClientsSection();
+            clearOrdersSection();
             let keys = Object.keys(data).length;
-            if (keys < 1) clearClientsSection();
-            else for (let i = 0; i < keys; i++) createClientRecord(data[i]);
+            if (keys < 1) clearOrdersSection();
+            else for (let i = 0; i < keys; i++) createOrderRecord(data[i]);
         },
         error: function () {
             setCookie("errorMessage", "Unable to find record", 5);
@@ -87,8 +87,8 @@ function showClientsPageResult(page) {
 }
 
 
-function clearClientsSection() {
-    $(".display-clients-section").children().remove();
+function clearOrdersSection() {
+    $(".display-orders-section").children().remove();
 }
 
 function showSearchByValue(val) {
@@ -100,8 +100,8 @@ function showSearchByValue(val) {
         },
         dataType: "json", // data to submit
         success: function (data) {
-            clearClientsSection();
-            createClientRecord(data);
+            clearOrdersSection();
+            createOrderRecord(data);
         },
         error: function () {
             setCookie("errorMessage", "Unable to find record", 5);
@@ -113,11 +113,11 @@ function showSearchByValue(val) {
 
 function showSearch(val) {
     if (val !== "") showSearchByValue(val);
-    else getClientsData();
+    else getOrdersData();
 }
 
-
-function deleteUser(id) {
+/*
+function deleteOrder(id) {
     $.ajax('/api/clients/'+id, {
         type: 'PATCH',  // http method
         data: {
@@ -133,19 +133,19 @@ function deleteUser(id) {
             printCookies();
         }
     });
-}
+}*/
 
-function getClientsData() {
-    $.ajax('/api/clients/active', {
+function getOrdersData() {
+    $.ajax('/api/orders/active', {
         type: 'GET',  // http method
         data: {},
         dataType: "json", // data to submit
         success: function (data) {
 
-            clearClientsSection()
+            clearOrdersSection()
             let keys = Object.keys(data).length;
-            if (keys < 1) clearClientsSection();
-            else for (let i = 0; i < keys; i++) createClientRecord(data[i]);
+            if (keys < 1) clearOrdersSection();
+            else for (let i = 0; i < keys; i++) createOrderRecord(data[i]);
 
         },
         error: function () {
@@ -155,25 +155,32 @@ function getClientsData() {
     });
 }
 
-function createClientRecord(datum) {
-    let client = document.createElement("div");
-    client.className = "client-record";
-    client.setAttribute("clientid", datum["id"]);
-    let clientName = document.createElement("p");
-    clientName.textContent = datum["name"];
-    clientName.setAttribute("data-target", "name");
-    let clientSurname = document.createElement("p");
-    clientSurname.textContent = datum["surname"];
-    clientSurname.setAttribute("data-target", "surname");
-    let clientCountry = document.createElement("p");
-    clientCountry.textContent = datum["phone_number"];
-    clientCountry.setAttribute("data-target", "phone-number");
-    let clientEmail = document.createElement("p");
-    clientEmail.textContent = datum["email"];
-    clientEmail.setAttribute("data-target", "email");
-    let clientPassword = document.createElement("p");
-    clientPassword.textContent = datum["password"];
-    clientPassword.setAttribute("data-target", "password");
+function createOrderRecord(datum) {
+    let order = document.createElement("div");
+    order.className = "order-record";
+    order.setAttribute("ordertid", datum["id"]);
+    let orderID = document.createElement("p");
+    orderID.textContent = datum["id"];
+    orderID.setAttribute("data-target", "id");
+    let orderArticle = document.createElement("p");
+    orderArticle.textContent = datum["article"];
+    orderArticle.setAttribute("data-target", "article");
+    let orderAmount = document.createElement("p");
+    orderAmount.textContent = datum["amount"];
+    orderAmount.setAttribute("data-target", "amount");
+    let orderEmail = document.createElement("p");
+    orderEmail.textContent = datum["client_email"];
+    orderEmail.setAttribute("data-target", "client_email");
+    let orderDelivery = document.createElement("p");
+    orderDelivery.textContent = datum["delivery_method"];
+    orderDelivery.setAttribute("data-target", "delivery_method");
+    let orderPayment = document.createElement("p");
+    orderPayment.textContent = datum["payment_method"];
+    orderPayment.setAttribute("data-target", "payment_method");
+    let orderStatus = document.createElement("p");
+    orderStatus.textContent = datum["status"];
+    orderStatus.setAttribute("data-target", "status");
+    /*
     let deleteButtonWrapper = document.createElement('div');
     deleteButtonWrapper.className = "table-action-wrapper";
     let deleteButton = document.createElement('button');
@@ -182,15 +189,15 @@ function createClientRecord(datum) {
     deleteButton.id = "deleteClient";
     deleteButton.setAttribute("clientid", datum["id"]);
     deleteButton.textContent = "Delete";
+*/
 
+    order.append(orderID);
+    order.append(orderArticle);
+    order.append(orderAmount);
+    order.append(orderEmail);
+    order.append(orderDelivery);
+    order.append(orderPayment);
+    order.append(orderStatus);
 
-    client.append(clientName);
-    client.append(clientSurname);
-    client.append(clientCountry);
-    client.append(clientEmail);
-    client.append(clientPassword);
-    deleteButtonWrapper.append(deleteButton);
-    client.append(deleteButtonWrapper);
-
-    $(".display-clients-section").append(client);
+    $(".display-orders-section").append(order);
 }

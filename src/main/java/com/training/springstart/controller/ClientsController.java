@@ -3,13 +3,13 @@ package com.training.springstart.controller;
 import com.training.springstart.model.Client;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.service.client.ClientServiceBean;
+import com.training.springstart.util.PagingEntity.PagingEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -123,6 +123,16 @@ public class ClientsController {
         }
 
         return clientAreaViewDTO;
+    }
+
+    @GetMapping(value = "/clients/table/", params = {"page", "size", "sort"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
+                                       @RequestParam(defaultValue = "10") Integer size,
+                                       @RequestParam(defaultValue = "id") String sort) {
+
+        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
+        return clientServiceBean.getPageAllNotDeleted(pagingEntity);
     }
 
 }

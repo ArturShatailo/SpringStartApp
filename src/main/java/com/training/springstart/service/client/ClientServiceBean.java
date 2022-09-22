@@ -5,16 +5,23 @@ import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.model.dto.ClientChangePassDTO;
 import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.CrudService;
+import com.training.springstart.util.PagingEntity.PagingEntity;
 import com.training.springstart.util.mapper.ClientMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class ClientServiceBean implements CrudService<Client>, ClientsPhoneService, GetClientByValueService, LoginRegisterService, UpdateDataService {
+public class ClientServiceBean implements ClientsTableService, CrudService<Client>, ClientsPhoneService, GetClientByValueService, LoginRegisterService, UpdateDataService {
 
     private final ClientRepository clientRepository;
 
@@ -141,4 +148,22 @@ public class ClientServiceBean implements CrudService<Client>, ClientsPhoneServi
         return clientRepository.findClientByEmail(email).orElse(null);
         /*.orElseThrow(() -> new EntityNotFoundException("Client not found with email = " + email));*/
     }
+
+    @Override
+    public List<Client> getPageAllNotDeleted(PagingEntity pagingEntity) {
+
+        Pageable paging = PageRequest.of(
+                pagingEntity.getPage(),
+                pagingEntity.getSize(),
+                Sort.by(pagingEntity.getSort()));
+
+        Page<Client> pageResult = clientRepository.findAll(paging);
+
+        if(pageResult.hasContent()) {
+            return pageResult.getContent();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
 }

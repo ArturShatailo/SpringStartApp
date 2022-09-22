@@ -18,9 +18,8 @@ input[type=submit] {
 }
 
 body {
-  background-image: url("images/1.jpg");
+  background-image: url("images/pexels-simon-berger-1323550.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
   background-position: center center;
   backdrop-filter: brightness(38%);
   -webkit-backdrop-filter: brightness(38%);
@@ -33,260 +32,60 @@ h1 {
   color: #e5e837;
 }
 
-a {
-  font-size: 16px;
+h3 {
+  font-size: 30px;
   color: rgb(254, 159, 151);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 1.2px;
-}
-a:hover {
-  color: #fff;
-}
-
-.small-button-text {
-  padding: 5px 20px;
-  background-color: transparent;
-  color: #e5e837;
-  transition-duration: 0.5s;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 0 20px 0;
-}
-.small-button-text:hover {
-  background-color: rgba(254, 159, 151, 0.4);
-  color: #ffffff;
-}
-
-.small-button {
-  padding: 5px 20px;
-  background-color: #e5e837;
-  color: #000;
-  transition-duration: 1s;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 0 20px 0;
-}
-.small-button:hover {
-  background-color: rgb(254, 159, 151);
-  color: #000;
 }
 
 .button {
-  padding: 12px 30px;
+  padding: 20px 60px;
   background-color: #e5e837;
-  color: #000;
+  color: black;
   transition-duration: 1s;
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
-  margin: 0 20px 0;
 }
 .button:hover {
   background-color: rgb(254, 159, 151);
-  color: #000;
+  color: black;
   transform: scale(1.1);
 }
 
-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 20vh;
-  position: relative;
-}
-
-.edit-user-pop-up {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  display: none;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.49);
-  top: 0;
-  left: 0;
-  z-index: 100;
-}
-.edit-user-pop-up form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.74);
-  box-shadow: rgba(229, 232, 55, 0.3019607843) 0 0 10px;
-  width: 510px;
-  height: 400px;
-  padding: 40px 40px;
-  position: relative;
-}
-.edit-user-pop-up form .close-pop-up {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 20px;
-  height: 20px;
-  color: #e5e837;
-  cursor: pointer;
-}
-.edit-user-pop-up form .form-group-wrapper {
+header .header-top-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  position: relative;
-  padding: 15px 0 0;
+  padding: 7% 0 2% 0;
 }
-.edit-user-pop-up form .form-button-label {
+header .header-bottom-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
 }
-.edit-user-pop-up form .form-group {
-  position: relative;
-  width: 48%;
-}
-.edit-user-pop-up form .form-field {
-  font-family: inherit;
-  width: 100%;
-  border-bottom: 2px solid rgb(254, 159, 151);
-  outline: 0;
-  font-size: 18px;
-  color: #fff;
-  padding: 20px 0 10px;
-  background: transparent;
-  transition: 0.8s;
-}
-.edit-user-pop-up form .form-field::placeholder {
-  color: transparent;
-}
-.edit-user-pop-up form .form-field:placeholder-shown ~ .form-label {
-  font-size: 18px;
-  cursor: text;
-  top: 20px;
-}
-.edit-user-pop-up form .form-label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.8s;
-  font-size: 18px;
-  color: rgb(254, 159, 151);
-}
-.edit-user-pop-up form .form-field:focus {
-  padding-bottom: 5px;
-  font-weight: 500;
-  border-width: 3px;
-  border-color: rgb(254, 159, 151); /*linear-gradient(to right, $primary, $secondary); border-image-slice: 1;*/
-}
-.edit-user-pop-up form .form-field:focus ~ .form-label {
-  position: absolute;
-  top: -5;
-  display: block;
-  transition: 0.8s;
-  font-size: 18px;
-  color: #e5e837;
-  font-weight: 700;
+header .header-bottom-section .home-header-description {
+  margin: 15px;
 }
 
 main {
+  min-height: 50vh;
   display: flex;
+  align-items: center;
+  justify-content: space-around;
   flex-direction: column;
+}
+main .main-first-section {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0 0;
-  width: 100vw;
-  min-height: 60vh;
+  margin-top: 14%;
 }
-main .personal-area-info {
-  flex-wrap: wrap;
-}
-@media (min-width: 767px) {
-  main .personal-area-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-  }
-}
-@media (min-width: 1024px) {
-  main .personal-area-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 70%;
-  }
-}
-main .personal-area-info div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 230px;
-}
-@media (min-width: 767px) {
-  main .personal-area-info div {
-    margin-bottom: 40px;
-  }
-}
-@media (min-width: 1024px) {
-  main .personal-area-info div {
-    margin-bottom: 50px;
-  }
-}
-main .personal-area-info div .shop-icon {
-  background-image: url("images/shop.png");
-  position: relative;
-}
-main .personal-area-info div .orders-icon {
-  background-image: url("images/orders.png");
-  position: relative;
-}
-main .personal-area-info div .name-icon {
-  background-image: url("images/name.png");
-  position: relative;
-}
-main .personal-area-info div .pa-info-icon {
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  margin-bottom: 20px;
-}
-main .personal-area-info div p {
-  color: #fff;
-  font-size: 18px;
-  font-weight: 300;
-  margin: 10px;
-}
-main .personal-area-info div p span {
-  color: #e5e837;
-  font-weight: 500;
-  font-size: 22px;
-}
-main .personal-area-info div p .before-counter {
-  position: absolute;
-  display: none;
-  top: -20px;
-  right: -20px;
-  color: rgb(118, 253, 165);
-  font-size: 20px;
-  padding: 2px 5px;
-}
-@media (min-width: 767px) {
-  main .personal-area-info div .filled-text-object {
-    mmargin-top: 10px;
-  }
-}
-@media (min-width: 1024px) {
-  main .personal-area-info div .filled-text-object {
-    margin-top: 30px;
-  }
+main .main-first-section .button {
+  margin: 0 20px 0;
 }
 
 /*# sourceMappingURL=style.css.map */
