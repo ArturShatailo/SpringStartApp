@@ -2,6 +2,7 @@ package com.training.springstart.controller;
 
 import com.training.springstart.model.dto.ClientAdminDTO;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
+import com.training.springstart.util.AdminSessionFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 @AllArgsConstructor
-public class AdminWebController {
+public class AdminWebController implements AdminSessionFilter {
 
     private final ObjectFactory<HttpSession> httpSessionFactory;
 
@@ -25,26 +26,23 @@ public class AdminWebController {
 
     @RequestMapping(value = "/clients")
     public String clientsAdminController() {
-        return "/admin/clients";
+        return checkAdminSession(httpSessionFactory)
+                ? "/admin/clients"
+                : "redirect:/admin/admin-login";
     }
 
     @RequestMapping(value = "/orders")
     public String ordersAdminController() {
-        return "/admin/orders";
+        return checkAdminSession(httpSessionFactory)
+                ? "/admin/orders"
+                : "redirect:/admin/admin-login";
     }
 
     @GetMapping(value = "/admin-area")
-    public String greetingController(Model model) {
-
-        HttpSession session = httpSessionFactory.getObject();
-        ClientAdminDTO admin = (ClientAdminDTO) session.getAttribute("admin");
-        String adminEmail = (String) session.getAttribute("admin-email");
-
-        if (admin != null) {
-            model.addAttribute("admin", admin);
-            return "/admin/admin-area";
-        } else
-            return "redirect:/admin/admin-login";
+    public String greetingController() {
+        return checkAdminSession(httpSessionFactory)
+                ? "/admin/admin-area"
+                : "redirect:/admin/admin-login";
     }
 
 }

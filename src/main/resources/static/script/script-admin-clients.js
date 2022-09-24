@@ -65,7 +65,7 @@ function showClientsPageResult(page) {
             sort: "id"
         };*/
 
-    $.ajax("/clients/table/p", {
+    $.ajax("/api/clients/table", {
         type: 'GET',  // http method
         data: {
             page: page,

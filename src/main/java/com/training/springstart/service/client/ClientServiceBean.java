@@ -13,11 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
@@ -27,14 +25,6 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     private final ClientRepository clientRepository;
 
     private final ClientMapper clientConverter;
-
-    @Override
-    public List<Client> findClientsByPhoneCode(String phone_code) {
-        List<Client> clients = clientRepository.findClientsByPhoneCode(phone_code);
-        clients.forEach(c -> System.err.println(c.getName() + ", dobroho vechora, my is Ukrainy"));
-
-        return clients;
-    }
 
     @Override
     public Client create(Client client) {
@@ -165,6 +155,14 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
         } else {
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public List<Client> findClientsByPhoneCode(String phone_code) {
+        List<Client> clients = clientRepository.findClientsByPhoneCode(phone_code);
+        clients.forEach(c -> System.err.println(c.getName() + ", dobroho vechora, my is Ukrainy"));
+
+        return clients;
     }
 
     @Override

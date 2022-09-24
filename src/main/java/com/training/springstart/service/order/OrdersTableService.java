@@ -1,4 +1,4 @@
-package com.training.springstart.service.client;
+package com.training.springstart.service.order;
 
 import com.training.springstart.model.Order;
 import com.training.springstart.util.PagingEntity.PagingEntity;

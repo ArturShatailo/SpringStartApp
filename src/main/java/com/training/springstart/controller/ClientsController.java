@@ -128,7 +128,7 @@ public class ClientsController {
         return clientAreaViewDTO;
     }
 
-    @GetMapping(value = "/clients/table/", params = {"page", "size", "sort"})
+    @GetMapping(value = "/clients/table", params = {"page", "size", "sort"})
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
                                        @RequestParam(defaultValue = "10") Integer size,

@@ -1,9 +1,7 @@
 package com.training.springstart.service.order;
 
-import com.training.springstart.model.Client;
 import com.training.springstart.model.Order;
 import com.training.springstart.service.CrudService;
-import com.training.springstart.service.client.OrdersTableService;
 import com.training.springstart.util.PagingEntity.PagingEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
