@@ -33,11 +33,11 @@ public class LoginRegisterServiceTests {
     @Test
     public void whenRegisterClient_shouldReturnClient() {
         Client client = new Client(
-                77,
+                72,
                 "SomeClient",
                 "SomeClientSur",
                 "ODUF#$f8w",
-                "someE@someE.com",
+                "someE14@someE.com",
                 "473987438793",
                 false);
 
@@ -55,10 +55,10 @@ public class LoginRegisterServiceTests {
 
     @Test
     public void whenLoginClient_shouldReturnClientAreaViewDTO() {
-        String testEmail = "email@email.com";
+        String testEmail = "email15@email.com";
         String testPassword = "JF#@E)8h9UOI";
         Client client = new Client(
-                88,
+                38,
                 "SomeClient",
                 "SomeClientSur",
                 testPassword,

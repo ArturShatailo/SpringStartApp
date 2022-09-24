@@ -5,7 +5,6 @@ import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.client.ClientServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -20,8 +19,6 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,14 +32,14 @@ public class GetClientByValueServiceTests {
     private ClientServiceBean clientServiceBean;
 
     @Test
-    public void whenGetAll_shouldReturnClientsList() {
-        int testId = 7,
-            testIdA = 8;
+    public void whenGetAll_shouldReturnNotDeletedClientsList() {
+        int testId = 54,
+            testIdA = 56;
 
         Client client = new Client(testId, "Name", "Surname", "ODUewdj8w",
-                "email@email.com", "473987438793", false);
+                "email12@email.com", "473987438793", false);
         Client clientA = new Client(testIdA, "NameA", "SurnameA", "ODUewdj8wA",
-                "emailA@emailA.com", "473987438791", false);
+                "emailA12@emailA.com", "473987438791", false);
         List<Client> clients = Arrays.asList(client, clientA);
 
         when(clientRepository.findAll()).thenReturn(clients);
@@ -63,9 +60,9 @@ public class GetClientByValueServiceTests {
 
     @Test
     public void whenGivenEmail_shouldReturnClient_ifFound() {
-        String testEmail = "email@email.com";
+        String testEmail = "email13@email.com";
         Client client = new Client(
-                77,
+                71,
                 "Name",
                 "Surname",
                 "ODUewdj8w",

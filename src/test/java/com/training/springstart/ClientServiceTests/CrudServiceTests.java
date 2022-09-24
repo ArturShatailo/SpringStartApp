@@ -60,7 +60,7 @@ public class CrudServiceTests {
                 "SomeClient",
                 "SomeClientSur",
                 "ODUF#$f8w",
-                "someE@someE.com",
+                "someE1@someE1.com",
                 "473987438793",
                 false);
 
@@ -74,13 +74,13 @@ public class CrudServiceTests {
 
     @Test(expected = RuntimeException.class)
     public void WhenUserIsDeleted_shouldThrowException() {
-        int testId = 1;
+        int testId = 2;
         Client client = new Client(
                 testId,
                 "SomeClient",
                 "SomeClientSur",
                 "ODUF#$f8w",
-                "someE@someE.com",
+                "someE2@someE2.com",
                 "473987438793",
                 true);
 
@@ -96,7 +96,7 @@ public class CrudServiceTests {
                 "Name",
                 "Surname",
                 "ODUewdj8w",
-                "email@email.com",
+                "email3@email3.com",
                 "473987438793",
                 false);
 
@@ -122,9 +122,9 @@ public class CrudServiceTests {
             testIdA = 8;
 
         Client client = new Client(testId, "Name", "Surname", "ODUewdj8w",
-                "email@email.com", "473987438793", false);
+                "email4@email4.com", "473987438793", false);
         Client clientA = new Client(testIdA, "NameA", "SurnameA", "ODUewdj8wA",
-                "emailA@emailA.com", "473987438791", false);
+                "emailA4@emailA4.com", "473987438791", false);
         List<Client> clients = Arrays.asList(client, clientA);
 
         when(clientRepository.findAll()).thenReturn(clients);
