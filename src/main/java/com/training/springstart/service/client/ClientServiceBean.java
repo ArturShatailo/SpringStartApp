@@ -5,6 +5,7 @@ import com.training.springstart.model.PromoCode;
 import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.CrudService;
 import com.training.springstart.service.auth.AuthLoginServiceBean;
+import com.training.springstart.service.auth.AuthRegisterServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.metadata.HsqlTableMetaDataProvider;
-
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -96,12 +95,38 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public Client registerClient(Client client) {
-        if (getByEmail(client.getEmail()) == null) {
-            return clientRepository.save(client);
-        } else {
-            return null;
-        }
+    public String registerClient(Client client, String passwordRepeat) {
+
+        if (client == null)
+            return unsuccessfullyRegister("Unable to register a new account with this email");
+
+        AuthRegisterServiceBean a = new AuthRegisterServiceBean(
+                client.getName(),
+                client.getSurname(),
+                client.getEmail(),
+                client.getPhone_number(),
+                client.getPassword());
+
+        if (!a.startCheck()) return unsuccessfullyRegister(a.getRequest());
+
+        if (!client.getPassword().equals(passwordRepeat))
+            return unsuccessfullyRegister("Password id not the same as repeated password");
+
+        if (getByEmail(client.getEmail()) != null)
+            return unsuccessfullyRegister("This email is already registered");
+
+        clientRepository.save(client);
+        return successfullyRegistered("Successfully registered");
+    }
+
+    private String unsuccessfullyRegister(String m) {
+        System.err.println(m);
+        return "redirect:/registration";
+    }
+
+    private String successfullyRegistered(String m) {
+        System.err.println(m);
+        return "redirect:/login";
     }
 
     @Override
@@ -109,29 +134,30 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
 
         if ( client == null ) return unsuccessfullyLoggedIn("Wrong email or password");
 
-        if (!comparePassword(client.getEmail(), client.getPassword()))
-            return unsuccessfullyLoggedIn("Wrong email or password");
-
         AuthLoginServiceBean b = new AuthLoginServiceBean(client.getEmail(), client.getPassword());
 
-        return b.startCheck()
-                ? successfullyLoggedIn(client)
-                : unsuccessfullyLoggedIn(b.getRequest());
+        if (!b.startCheck()) return unsuccessfullyLoggedIn(b.getRequest());
+
+        Client clientEntity = getByEmail(client.getEmail());
+
+        if (!compareClients(client, clientEntity))
+            return unsuccessfullyLoggedIn("Wrong email or password");
+
+        return successfullyLoggedIn(clientEntity, "Successfully logged in");
     }
 
-
-    public boolean comparePassword(String email, String password) {
-        Client client = getByEmail(email);
-        return client != null
-                && client.getPassword().equals(password);
+    public boolean compareClients(Client client, Client clientEntity) {
+        return (client != null && clientEntity != null)
+                && client.getPassword().equals(clientEntity.getPassword());
     }
 
     private String unsuccessfullyLoggedIn(String m) {
-        String message = m;
+        System.err.println(m);
         return "redirect:/login";
     }
 
-    private String successfullyLoggedIn(Client client) {
+    private String successfullyLoggedIn(Client client, String m) {
+        System.err.println(m);
         HttpSession session = httpSessionFactory.getObject();
         session.setAttribute("client", client);
         session.setAttribute("email", client.getEmail());

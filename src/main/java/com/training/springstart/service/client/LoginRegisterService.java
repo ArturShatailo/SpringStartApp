@@ -7,6 +7,6 @@ public interface LoginRegisterService {
 
     String loginClient(Client client);
 
-    Client registerClient(Client client);
+    String registerClient(Client client, String passwordRepeat);
 
 }

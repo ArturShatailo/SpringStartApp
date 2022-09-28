@@ -36,6 +36,11 @@ public class ClientDateDTO {
     @Schema(description = "Password of a client.", example = "MEW)h8iubPN9gh4w", required = true)
     private String password;
 
+    @NotNull(message = "Password repeat may not be null")
+    @Size(min = 6, message = "Password repeat must be longer than 6 characters")
+    @Schema(description = "Password repeat", example = "MEW)h8iubPN9gh4w", required = true)
+    private String passwordRepeat;
+
     @Email
     @NotNull(message = "Email number may not be null")
     @Schema(description = "Email address of a client.", example = "martinJefferson@mail.com", required = true)

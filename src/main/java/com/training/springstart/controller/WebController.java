@@ -1,5 +1,6 @@
 package com.training.springstart.controller;
 
+import com.training.springstart.model.Client;
 import com.training.springstart.model.dto.ClientAreaViewDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
@@ -31,10 +32,10 @@ public class WebController {
     public String greetingController(Model model) {
 
         HttpSession session = httpSessionFactory.getObject();
-        ClientAreaViewDTO cd = (ClientAreaViewDTO) session.getAttribute("client");
+        Client client = (Client) session.getAttribute("client");
 
-        if (cd != null) {
-            model.addAttribute("client", cd);
+        if (client != null) {
+            model.addAttribute("client", client);
             return "personal-area";
         } else
             return "redirect:/login";

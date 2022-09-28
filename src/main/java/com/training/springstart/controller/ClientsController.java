@@ -118,17 +118,17 @@ public class ClientsController {
 
     @GetMapping("/get-client")
     @ResponseStatus(HttpStatus.OK)
-    public ClientAreaViewDTO checkClientBySession(HttpServletResponse response) throws IOException {
+    public Client checkClientBySession(HttpServletResponse response) throws IOException {
         HttpSession session = httpSessionFactory.getObject();
-        ClientAreaViewDTO clientAreaViewDTO = (ClientAreaViewDTO) session.getAttribute("client");
+        Client client = (Client) session.getAttribute("client");
         try {
-            if (clientAreaViewDTO == null) throw new NullPointerException();
+            if (client == null) throw new NullPointerException();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             response.sendRedirect("/login.html");
         }
 
-        return clientAreaViewDTO;
+        return client;
     }
 
     @GetMapping(value = "/clients/table", params = {"page", "size", "sort"})

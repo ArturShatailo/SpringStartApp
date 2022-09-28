@@ -66,12 +66,12 @@ public class OrderController {
     public List<Order> getAllOrdersByClientEmail() {
 
         HttpSession session = httpSessionFactory.getObject();
-        ClientAreaViewDTO clientAreaViewDTO = (ClientAreaViewDTO) session.getAttribute("client");
+        Client client = (Client) session.getAttribute("client");
 
         try {
-            if (clientAreaViewDTO == null || clientAreaViewDTO.getEmail() == null)
+            if (client == null || client.getEmail() == null)
                 throw new NullPointerException();
-            return orderServiceBean.getOpenByClient_email(clientAreaViewDTO.getEmail());
+            return orderServiceBean.getOpenByClient_email(client.getEmail());
         } catch (NullPointerException npe) {
             npe.printStackTrace();
             return null;
