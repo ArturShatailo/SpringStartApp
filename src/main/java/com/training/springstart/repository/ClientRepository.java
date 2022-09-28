@@ -1,6 +1,7 @@
 package com.training.springstart.repository;
 
 import com.training.springstart.model.Client;
+import com.training.springstart.model.PromoCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -47,5 +48,23 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
 
     //Page<Client> findClientByPhone_numberStartingWith(String phone_code, Pageable pageable);
 
+    /*@Transactional
+    @Query(value = "INSERT INTO clients (name, surname, password, phone_number, deleted, email) VALUES (?1, ?2, ?3, ?4, ?5, ?6)", countQuery = "1",  nativeQuery = true)
+    Client saveWithPromo(@Param("customer") Client client, @Param("promo_code") String promoCode);
+*/
+
+
+    @Transactional
+    @Modifying
+    @Query(value =
+            "BEGIN; " +
+                    "INSERT INTO clients (name, surname, password, phone_number, deleted, email)" +
+                    "VALUES (:#{#client.name}, :#{#client.surname}, :#{#client.password}, " +
+                    ":#{#client.phone_number}, false, :#{#client.email});" +
+                    "INSERT INTO promo_codes (owner_email, value, status) " +
+                    "VALUES (:#{#promo_code.owner_email}, :#{#promo_code.value}, :#{#promo_code.status})  " +
+                    ";"+
+            "COMMIT;", nativeQuery = true)
+    void saveWithPromo(@Param("client") Client client, @Param("promo_code") PromoCode promo_code);
 
 }

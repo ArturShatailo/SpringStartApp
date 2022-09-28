@@ -5,7 +5,7 @@ import com.training.springstart.model.dto.ClientAreaViewDTO;
 
 public interface LoginRegisterService {
 
-    ClientAreaViewDTO loginClient(String email, String password);
+    String loginClient(Client client);
 
     Client registerClient(Client client);
 

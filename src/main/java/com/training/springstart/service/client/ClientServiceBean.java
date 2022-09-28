@@ -1,19 +1,22 @@
 package com.training.springstart.service.client;
 
 import com.training.springstart.model.Client;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
-import com.training.springstart.model.dto.ClientChangePassDTO;
+import com.training.springstart.model.PromoCode;
 import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.CrudService;
+import com.training.springstart.service.auth.AuthLoginServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
-import com.training.springstart.util.mapper.ClientMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.metadata.HsqlTableMetaDataProvider;
+
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,7 +27,7 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
 
     private final ClientRepository clientRepository;
 
-    private final ClientMapper clientConverter;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
     @Override
     public Client create(Client client) {
@@ -75,39 +78,21 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public ClientAreaViewDTO updateByEmail(String email, String name, String surname, String phone_number) {
-        int status = clientRepository
+    public int updateByEmail(Client client) {
+        return clientRepository
                 .updateClientByEmail(
-                        name,
-                        surname,
-                        phone_number,
-                        email);
-
-        Client client = new Client();
-        client.setName(name);
-        client.setEmail(email);
-        client.setSurname(surname);
-        client.setPhone_number(phone_number);
-
-        return status > 0
-                ? clientConverter.toAreaViewDTO(client)
-                : null;
+                        client.getName(),
+                        client.getSurname(),
+                        client.getPhone_number(),
+                        client.getEmail());
     }
 
     @Override
-    public ClientChangePassDTO updatePasswordByEmail(String email, String password) {
-        int status = clientRepository
+    public void updatePasswordByEmail(Client client) {
+        clientRepository
                 .updateClientPassByEmail(
-                        password,
-                        email);
-
-        Client client = new Client();
-        client.setEmail(email);
-        client.setPassword(password);
-
-        return status > 0
-                ? clientConverter.toChangePassDTO(client)
-                : null;
+                        client.getPassword(),
+                        client.getEmail());
     }
 
     @Override
@@ -120,19 +105,39 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public ClientAreaViewDTO loginClient(String email, String password) {
-        return comparePassword(email, password);
+    public String loginClient(Client client) {
+
+        if ( client == null ) return unsuccessfullyLoggedIn("Wrong email or password");
+
+        if (!comparePassword(client.getEmail(), client.getPassword()))
+            return unsuccessfullyLoggedIn("Wrong email or password");
+
+        AuthLoginServiceBean b = new AuthLoginServiceBean(client.getEmail(), client.getPassword());
+
+        return b.startCheck()
+                ? successfullyLoggedIn(client)
+                : unsuccessfullyLoggedIn(b.getRequest());
     }
 
-    public ClientAreaViewDTO comparePassword(String email, String password) {
+
+    public boolean comparePassword(String email, String password) {
         Client client = getByEmail(email);
-        if (client != null && client.getPassword().equals(password)) {
-            return clientConverter.toAreaViewDTO(client);
-        } else {
-            return null;
-            //throw new EntityNotFoundException("Login is failed with email " + email);
-        }
+        return client != null
+                && client.getPassword().equals(password);
     }
+
+    private String unsuccessfullyLoggedIn(String m) {
+        String message = m;
+        return "redirect:/login";
+    }
+
+    private String successfullyLoggedIn(Client client) {
+        HttpSession session = httpSessionFactory.getObject();
+        session.setAttribute("client", client);
+        session.setAttribute("email", client.getEmail());
+        return "redirect:/personal-area";
+    }
+
 
     @Override
     public Client getByEmail(String email) {
@@ -173,5 +178,8 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
 
     }
 
-
+    public Client createWithPromo(Client client, PromoCode promoCode) {
+        clientRepository.saveWithPromo(client, promoCode);
+        return getByEmail(client.getEmail());
+    }
 }

@@ -25,7 +25,7 @@ public class UpdateDataServiceTests {
 
     @Test
     @Ignore
-    public void whenUpdateByEmailClient_shouldReturnClientAreaViewDTO() {
+    public void whenUpdateByEmailClient_shouldUpdateClientFields() {
         Client client = new Client(
                 83,
                 "Name",
@@ -44,11 +44,19 @@ public class UpdateDataServiceTests {
         when(clientRepository
                 .updateClientByEmail(newName, newSurname, newPhone, client.getEmail()))
                 .thenReturn(1);
-        ClientAreaViewDTO clientAreaViewDTO = clientServiceBean.updateByEmail(client.getEmail(), newName, newSurname, newPhone);
+        Client updated = new Client(
+                83,
+                newName,
+                newSurname,
+                "ODUewdj8w",
+                "email17@email.com",
+                newPhone,
+                false);
+        clientServiceBean.updateByEmail(updated);
 
-        assertThat(client.getName()).isSameAs(clientAreaViewDTO.getName());
-        assertThat(client.getPhone_number()).isSameAs(clientAreaViewDTO.getPhone_number());
-        assertThat(client.getSurname()).isSameAs(clientAreaViewDTO.getSurname());
+        assertThat(client.getName()).isSameAs(updated.getName());
+        assertThat(client.getPhone_number()).isSameAs(updated.getPhone_number());
+        assertThat(client.getSurname()).isSameAs(updated.getSurname());
 
         verify(clientRepository).updateClientByEmail(newName, newSurname, newPhone, client.getEmail());
     }

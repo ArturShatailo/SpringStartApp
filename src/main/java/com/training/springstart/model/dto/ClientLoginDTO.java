@@ -1,18 +1,14 @@
 package com.training.springstart.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Setter
-@Getter
-@ToString
-public class ClientChangePassDTO {
+@Data
+public class ClientLoginDTO {
 
     @Email
     @NotNull(message = "Email number may not be null")
@@ -23,5 +19,7 @@ public class ClientChangePassDTO {
     @Size(min = 6, message = "Password must be longer than 6 characters")
     @Schema(description = "Password of a client.", example = "MEW)h8iubPN9gh4w", required = true)
     private String password;
+
+    private String status = "client";
 
 }
