@@ -17,7 +17,6 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     private String name;
@@ -88,8 +87,8 @@ public class Client {
         this.deleted = deleted;
     }
 
-    public ClientDTO clientToDTO(){
-        return new ClientDTO(name, surname, email, phone_number);
-    }
+    //public ClientDTO clientToDTO(){
+        //return new ClientDTO(name, surname, email, phone_number);
+    //}
 
 }

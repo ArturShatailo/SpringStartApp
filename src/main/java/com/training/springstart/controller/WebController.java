@@ -1,21 +1,22 @@
 package com.training.springstart.controller;
 
-import com.training.springstart.model.ClientDTO;
+import com.training.springstart.model.Client;
+import com.training.springstart.model.dto.ClientAreaViewDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
+@AllArgsConstructor
 public class WebController {
 
-    @Autowired
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private final ObjectFactory<HttpSession> httpSessionFactory;
 
     @RequestMapping(value = "/registration")
     public String registrationController() {
@@ -31,10 +32,10 @@ public class WebController {
     public String greetingController(Model model) {
 
         HttpSession session = httpSessionFactory.getObject();
-        ClientDTO cd = (ClientDTO) session.getAttribute("client");
+        Client client = (Client) session.getAttribute("client");
 
-        if (cd != null) {
-            model.addAttribute("client", cd);
+        if (client != null) {
+            model.addAttribute("client", client);
             return "personal-area";
         } else
             return "redirect:/login";

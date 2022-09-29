@@ -1,0 +1,29 @@
+
+/* Works on Firefox */
+div {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(254 159 151) black;
+}
+
+/* Works on Chrome, Edge, and Safari */
+div::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: black;
+}
+
+div::-webkit-scrollbar-corner {
+    background: black;
+}
+
+div::-webkit-scrollbar-track {
+    background: black;
+}
+
+div::-webkit-scrollbar-thumb {
+    background-color: rgb(254 159 151);
+    border-radius: 0;
+    border: 1px solid rgb(254 159 151);
+}
+
+

@@ -54,7 +54,6 @@ function getShopData() {
         type: 'GET',  // http method
         data: {},  // data to submit
         success: function (data) {
-            console.log(data);
             $('#go-shop')
                 .show()
                 .text(data.length);
