@@ -96,7 +96,7 @@ public class ClientsController {
         response.sendRedirect("/personal-area");
     }
 
-    @PostMapping("/clients/updatePassword")
+    @PostMapping("/clients/update/password")
     @ResponseStatus(HttpStatus.CREATED)
     public void updateClientPassword(@RequestBody @Valid ClientChangePassDTO clientChangePassDTO, /*@RequestParam String newPassword, @RequestParam String newPasswordRepeat,*/ HttpServletResponse response) throws IOException {
         HttpSession session = httpSessionFactory.getObject();
