@@ -7,6 +7,7 @@ import com.training.springstart.model.dto.ClientDateDTO;
 import com.training.springstart.model.dto.ClientDatePromoDTO;
 import com.training.springstart.service.client.ClientServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
+import com.training.springstart.util.config.ClientConverter;
 import com.training.springstart.util.mapper.ClientMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,6 +35,8 @@ public class ClientsController {
 
     private final ClientMapper clientConverter;
 
+    private final ClientConverter orikaClientConverter;
+
     private final ObjectFactory<HttpSession> httpSessionFactory;
 
     private final ClientServiceBean clientServiceBean;
@@ -53,7 +56,8 @@ public class ClientsController {
     @PostMapping("/clients/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Client saveClient(@RequestBody @Valid ClientDateDTO clientDateDTO) {
-        Client client = clientConverter.toObject(clientDateDTO);
+        //Client client = clientConverter.toObject(clientDateDTO);
+        Client client = orikaClientConverter.toInitial(clientDateDTO);
         return clientServiceBean.create(client);
     }
 

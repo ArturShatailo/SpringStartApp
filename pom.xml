@@ -105,22 +105,22 @@
 
 
         <!--<dependency>
+            <groupId>net.rakugakibox.spring.boot</groupId>
+            <artifactId>orika-spring-boot-starter</artifactId>
+            <version>1.9.0</version>
+        </dependency>-->
+
+        <dependency>
             <groupId>dev.akkinoc.spring.boot</groupId>
             <artifactId>orika-spring-boot-starter</artifactId>
             <version>2.3.3</version>
         </dependency>
 
         <dependency>
-            <groupId>net.rakugakibox.spring.boot</groupId>
-            <artifactId>orika-spring-boot-starter</artifactId>
-            <version>1.9.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
             <version>1.5.4</version>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>
