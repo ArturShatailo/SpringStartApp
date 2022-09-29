@@ -1,4 +1,4 @@
-package com.training.springstart.controller;
+package com.training.springstart.controller.implementation;
 
 import com.training.springstart.model.Client;
 import com.training.springstart.model.Good;

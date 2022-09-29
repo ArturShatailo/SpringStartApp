@@ -1,11 +1,9 @@
 package com.training.springstart.service.admin;
 
-import com.training.springstart.model.Client;
-import com.training.springstart.model.dto.ClientAdminDTO;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
+import com.training.springstart.model.ClientAdmin;
 
 public interface LoginAdminService {
 
-    ClientAdminDTO loginAdmin(String email, String password);
+    String loginAdmin(ClientAdmin admin);
 
 }
