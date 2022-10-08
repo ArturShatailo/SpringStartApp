@@ -1,6 +1,6 @@
 package com.training.springstart.util;
 
-import com.training.springstart.model.dto.ClientAdminDTO;
+import com.training.springstart.model.dto.clientDTO.ClientAdminDTO;
 import org.springframework.beans.factory.ObjectFactory;
 
 import javax.servlet.http.HttpSession;

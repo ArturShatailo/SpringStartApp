@@ -2,14 +2,10 @@ package com.training.springstart.controller.implementation;
 
 import com.training.springstart.model.Client;
 import com.training.springstart.model.Order;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
-import com.training.springstart.service.CrudService;
-import com.training.springstart.service.order.OrderService;
 import com.training.springstart.service.order.OrderServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

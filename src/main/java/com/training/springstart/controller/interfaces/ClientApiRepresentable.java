@@ -1,10 +1,10 @@
 package com.training.springstart.controller.interfaces;
 
 import com.training.springstart.model.Client;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
-import com.training.springstart.model.dto.ClientChangePassDTO;
-import com.training.springstart.model.dto.ClientDateDTO;
-import com.training.springstart.model.dto.ClientDatePromoDTO;
+import com.training.springstart.model.dto.clientDTO.ClientAreaViewDTO;
+import com.training.springstart.model.dto.clientDTO.ClientChangePassDTO;
+import com.training.springstart.model.dto.clientDTO.ClientDateDTO;
+import com.training.springstart.model.dto.clientDTO.ClientDatePromoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -2,7 +2,7 @@ package com.training.springstart.controller.implementation;
 
 import com.training.springstart.controller.interfaces.AdminLoggable;
 import com.training.springstart.model.ClientAdmin;
-import com.training.springstart.model.dto.ClientAdminDTO;
+import com.training.springstart.model.dto.clientDTO.ClientAdminDTO;
 import com.training.springstart.service.admin.AdminServiceBean;
 import com.training.springstart.util.mapper.ClientMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;

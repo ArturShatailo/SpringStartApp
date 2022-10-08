@@ -1,6 +1,6 @@
 package com.training.springstart.controller.interfaces;
 
-import com.training.springstart.model.dto.ClientAdminDTO;
+import com.training.springstart.model.dto.clientDTO.ClientAdminDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

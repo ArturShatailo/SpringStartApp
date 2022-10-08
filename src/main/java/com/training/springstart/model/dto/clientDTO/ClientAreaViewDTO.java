@@ -1,4 +1,4 @@
-package com.training.springstart.model.dto;
+package com.training.springstart.model.dto.clientDTO;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.training.springstart.ClientServiceTests;
 
 import com.training.springstart.model.Client;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
+import com.training.springstart.model.dto.clientDTO.ClientAreaViewDTO;
 import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.client.ClientServiceBean;
 import com.training.springstart.util.mapper.ClientMapper;

@@ -1,12 +1,9 @@
 package com.training.springstart.controller;
 
-import com.training.springstart.model.dto.ClientAdminDTO;
-import com.training.springstart.model.dto.ClientAreaViewDTO;
 import com.training.springstart.util.AdminSessionFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 

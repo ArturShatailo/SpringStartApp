@@ -2,7 +2,7 @@ package com.training.springstart.controller.implementation;
 
 import com.training.springstart.controller.interfaces.ClientRegistrable;
 import com.training.springstart.model.Client;
-import com.training.springstart.model.dto.ClientDateDTO;
+import com.training.springstart.model.dto.clientDTO.ClientDateDTO;
 import com.training.springstart.service.client.LoginRegisterService;
 import com.training.springstart.util.mapper.ClientMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
