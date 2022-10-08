@@ -23,7 +23,6 @@ public class Card {
 
     private String expirationDate;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="owner_id", nullable=false)
     private Client owner;
