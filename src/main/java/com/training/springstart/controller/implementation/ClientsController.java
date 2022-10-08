@@ -144,18 +144,11 @@ public class ClientsController implements ClientApiRepresentable {
     }
 
     @Override
-    @GetMapping(value = "/clients/table/p")
+    @GetMapping(value = "/clients/table/phones")
     @ResponseStatus(HttpStatus.OK)
     public Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code) {
         log.info("Start method getClientsPageByPhoneCode with parameter {}", phone_code);
         return clientServiceBean.findClientsPageByPhoneCode(phone_code);
-    }
-
-    @Override
-    @GetMapping(value = "/clients/phones", params = {"phone_code"})
-    @ResponseStatus(HttpStatus.OK)
-    public List<Client> getClientsByPhoneCodes(@RequestParam String phone_code) {
-        return clientServiceBean.findClientsByPhoneCode(phone_code);
     }
 
     @Override

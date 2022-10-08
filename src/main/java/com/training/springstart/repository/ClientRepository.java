@@ -35,9 +35,6 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
             (@Param("password") String password,
              @Param("email") String email);
 
-    @Query(value = "SELECT * FROM clients WHERE phone_number LIKE ?% AND deleted=false", nativeQuery = true)
-    List<Client> findClientsByPhoneCode(String phone_code);
-
 
     @Query(value = "SELECT * FROM clients c WHERE deleted=false", nativeQuery = true)
     List<Client> findAllNotDeleted();

@@ -89,43 +89,6 @@ public class ClientRepositoryTests {
     }
 
     @Test
-    @Order(4)
-    public void getAllNotDeletedClientsTest() {
-
-        Client client = clientRepository.save(
-                Client.builder()
-                        .id(94)
-                        .name("Adam")
-                        .surname("Eva")
-                        .password("IH&(*iun87G")
-                        .email("Email23@Email.com")
-                        .phone_number("888865644356")
-                        .deleted(false)
-                        .build());
-
-        Client client1 = clientRepository.save(
-                Client.builder()
-                        .id(95)
-                        .name("AdamNew")
-                        .surname("EvaNew")
-                        .password("IH&(*ifd3e4we4")
-                        .email("rmailNew24@rmailNew.com")
-                        .phone_number("88842322436")
-                        .deleted(false)
-                        .build());
-
-        clientRepository.save(client);
-        clientRepository.save(client1);
-
-        List<Client> clientsList = Arrays.asList(client, client1);
-        List<Client> clientsList1 = clientRepository.findClientsByPhoneCode("888");
-
-        assertThat(clientsList1).isNotNull();
-        assertThat(clientsList1).containsAll(clientsList);
-        assertThat(clientsList1.size()).isEqualTo(clientsList.size());
-    }
-
-    @Test
     @Order(5)
     public void getListOfClientsTest(){
 

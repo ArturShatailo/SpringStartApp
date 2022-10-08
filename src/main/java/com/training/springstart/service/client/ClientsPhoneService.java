@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ClientsPhoneService {
 
-    List<Client> findClientsByPhoneCode(String phone_code);
-
     Page<Client> findClientsPageByPhoneCode(String phone_code);
 
 }

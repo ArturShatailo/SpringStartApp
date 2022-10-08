@@ -139,18 +139,6 @@ public interface ClientApiRepresentable {
                                        @RequestParam(defaultValue = "10") Integer size,
                                        @RequestParam(defaultValue = "id") String sort);
 
-    @Operation(summary = "This is endpoint to find clients by phone code.",
-            description = "Create request to find clients by phone code.",
-            tags = {"Client API"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "FOUND. The client has been successfully found in database."),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND. Specified client request not found."),
-            @ApiResponse(responseCode = "409", description = "conflict in the request")})
-    @GetMapping(value = "/clients/phones", params = {"phone_code"})
-    @ResponseStatus(HttpStatus.FOUND)
-    List<Client> getClientsByPhoneCodes(@RequestParam String phone_code);
-
     @Operation(summary = "This is endpoint to find clients by phone code with paging and sorting.",
             description = "Create request to find clients by phone code.",
             tags = {"Client API"})

@@ -193,14 +193,6 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public List<Client> findClientsByPhoneCode(String phone_code) {
-        List<Client> clients = clientRepository.findClientsByPhoneCode(phone_code);
-        clients.forEach(c -> System.err.println(c.getName() + ", dobroho vechora, my is Ukrainy"));
-
-        return clients;
-    }
-
-    @Override
     public Page<Client> findClientsPageByPhoneCode(String phone_code) {
         Pageable pageable = PageRequest.of(0, 5, Sort.by("id").ascending());
         return clientRepository.findPP(phone_code, pageable);
