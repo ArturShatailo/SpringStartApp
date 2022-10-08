@@ -3,12 +3,14 @@ package com.training.springstart.controller.implementation;
 import com.training.springstart.controller.interfaces.ClientApiRepresentable;
 import com.training.springstart.model.Card;
 import com.training.springstart.model.Client;
+import com.training.springstart.model.dto.CardSaveDTO;
 import com.training.springstart.model.dto.clientDTO.ClientAreaViewDTO;
 import com.training.springstart.model.dto.clientDTO.ClientChangePassDTO;
 import com.training.springstart.model.dto.clientDTO.ClientDateDTO;
 import com.training.springstart.model.dto.clientDTO.ClientDatePromoDTO;
 import com.training.springstart.service.client.ClientServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
+import com.training.springstart.util.mapper.CardMapper;
 import com.training.springstart.util.mapper.ClientMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +35,8 @@ import java.util.List;
 public class ClientsController implements ClientApiRepresentable {
 
     private final ClientMapper clientConverter;
+
+    private final CardMapper cardConverter;
 
     private final ObjectFactory<HttpSession> httpSessionFactory;
 
@@ -159,6 +164,18 @@ public class ClientsController implements ClientApiRepresentable {
     public Client saveClient(@RequestBody ClientDatePromoDTO clientDatePromoDTO) {
         Client client = clientConverter.toObject(clientDatePromoDTO);
         return clientServiceBean.createWithPromo(client, clientDatePromoDTO.getPromo_code());
+    }
+
+    @Transactional
+    @PatchMapping("/clients/card")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client updateCardInformation(@RequestBody CardSaveDTO cardSaveDTO, HttpServletResponse response) throws IOException {
+        Card card = cardConverter.toObject(cardSaveDTO);
+        //Client client = checkClientBySession(response);
+        Client client = getClientById(17);
+        client = clientServiceBean.updateCards(client, card);
+        //return clientConverter.toAreaViewDTO(client);
+        return client;
     }
 
 }

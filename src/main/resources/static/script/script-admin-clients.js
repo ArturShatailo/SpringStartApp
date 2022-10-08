@@ -31,6 +31,7 @@ $(document).ready(function() {
                     .addClass("active-page")
                     .siblings()
                     .removeClass("active-page");
+                showClientsPageResult( activeAttribute + 1 );
             }
         }
 
@@ -43,6 +44,7 @@ $(document).ready(function() {
                     .addClass("active-page")
                     .siblings()
                     .removeClass("active-page");
+                showClientsPageResult( activeAttribute - 1 );
             }
         }
 
