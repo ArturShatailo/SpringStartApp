@@ -1,6 +1,7 @@
 package com.training.springstart.controller.implementation;
 
 import com.training.springstart.controller.interfaces.ClientApiRepresentable;
+import com.training.springstart.model.Card;
 import com.training.springstart.model.Client;
 import com.training.springstart.model.dto.clientDTO.ClientAreaViewDTO;
 import com.training.springstart.model.dto.clientDTO.ClientChangePassDTO;
@@ -159,7 +160,5 @@ public class ClientsController implements ClientApiRepresentable {
         Client client = clientConverter.toObject(clientDatePromoDTO);
         return clientServiceBean.createWithPromo(client, clientDatePromoDTO.getPromo_code());
     }
-
-
 
 }

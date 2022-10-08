@@ -1,11 +1,13 @@
 package com.training.springstart.service.client;
 
+import com.training.springstart.model.Card;
 import com.training.springstart.model.Client;
 import com.training.springstart.model.PromoCode;
 import com.training.springstart.repository.ClientRepository;
 import com.training.springstart.service.CrudService;
 import com.training.springstart.service.auth.AuthLoginServiceBean;
 import com.training.springstart.service.auth.AuthRegisterServiceBean;
+import com.training.springstart.service.card.CardServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ import java.util.List;
 public class ClientServiceBean implements ClientsTableService, CrudService<Client>, ClientsPhoneService, GetClientByValueService, LoginRegisterService, UpdateDataService {
 
     private final ClientRepository clientRepository;
+
+    private final CardServiceBean cardServiceBean;
 
     private final ObjectFactory<HttpSession> httpSessionFactory;
 
@@ -207,5 +211,15 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     public Client createWithPromo(Client client, PromoCode promoCode) {
         clientRepository.saveWithPromo(client, promoCode);
         return getByEmail(client.getEmail());
+    }
+
+    public void saveCard(Card card) {
+        cardServiceBean.create(card);
+    }
+
+    public Client updateCards(Client client, Card card) {
+        card.setOwner(client);
+        saveCard(card);
+        return client;
     }
 }
