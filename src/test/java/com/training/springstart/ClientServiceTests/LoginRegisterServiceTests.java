@@ -45,8 +45,7 @@ public class LoginRegisterServiceTests {
                 .save(ArgumentMatchers.any(Client.class)))
                 .thenReturn(client);
 
-        clientServiceBean.registerClient(client, "O3UF#$f8w");
-        Client client1 = clientServiceBean.getByEmail("someE14@someE.com");
+        Client client1 = clientServiceBean.create(client);
 
         assertThat(client1.getId()).isSameAs(client.getId());
         assertThat(client1.getName()).isSameAs(client.getName());

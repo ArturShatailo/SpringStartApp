@@ -20,6 +20,7 @@ public class ClientAdminDTO {
     @Schema(description = "Password of a client.", example = "MEW)h8iubPN9gh4w", required = true)
     private String password;
 
+    @Schema(description = "Role of the person", example = "admin", required = true)
     private String status = "admin";
 
 }

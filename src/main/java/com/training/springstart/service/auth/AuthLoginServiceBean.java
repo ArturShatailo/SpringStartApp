@@ -1,6 +1,5 @@
 package com.training.springstart.service.auth;
 
-import com.training.springstart.service.auth.AuthLoginService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
