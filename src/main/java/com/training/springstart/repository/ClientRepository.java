@@ -39,9 +39,15 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
     @Query(value = "SELECT * FROM clients c WHERE deleted=false", nativeQuery = true)
     List<Client> findAllNotDeleted();
 
+    @Query(value = "SELECT * FROM clients c WHERE deleted=false", nativeQuery = true)
+    Page<Client> findAllNotDeletedPage(Pageable pageable);
+
     //@Query(value = "select c from Client c where c.phone_number LIKE ':phone_code%' AND c.deleted=false")
     @Query(value = "SELECT * FROM clients c WHERE c.phone_number LIKE ?1% AND deleted=false", nativeQuery = true)
     Page<Client> findPP(String phone_code, Pageable pageable);
+
+    @Query(value = "SELECT * FROM clients c WHERE c.email LIKE %?1 AND deleted=false", nativeQuery = true)
+    Page<Client> findClientsWithEmailDomain(String email_domain, Pageable pageable);
 
     //Page<Client> findClientByPhone_numberStartingWith(String phone_code, Pageable pageable);
 
@@ -63,5 +69,22 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
                     ";"+
             "COMMIT;", nativeQuery = true)
     void saveWithPromo(@Param("client") Client client, @Param("promo_code") PromoCode promo_code);
+
+
+    @Query(value = "" +
+            "SELECT * " +
+            "FROM clients c " +
+            "LEFT JOIN (select * from cards) as cardList " +
+            "ON c.id = cardList.owner_id " +
+            "WHERE cardList.owner_id is null", nativeQuery = true)
+    Page<Client> findClientsWithNoCard(Pageable pageable);
+
+    @Query(value = "" +
+            "SELECT * " +
+            "FROM clients c " +
+            "INNER JOIN (select * from cards) as cardList " +
+            "ON c.id = cardList.owner_id ", nativeQuery = true)
+    Page<Client> findClientsWithCard(Pageable pageable);
+
 
 }

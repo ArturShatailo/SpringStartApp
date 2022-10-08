@@ -3,8 +3,7 @@
 $(document).ready(function() {
 
     //Calls function that fills html with received from database values
-    //getClientsData();
-
+    //definePagesAmount(data["totalPages"]);
     showClientsPageResult(0);
 
     $(document).on('click', function (e){
@@ -58,14 +57,42 @@ $(document).ready(function() {
 
 });
 
-function showClientsPageResult(page) {
+/*function definePagesAmount(pagesAmount) {
 
-    /*const pagingEntity =
-        {
-            page: page,
-            size: 1,
-            sort: "id"
-        };*/
+    let paginationBlock = $("#pagination-clients-section");
+
+    createPrevButton();
+    for (let i = 1; i < pagesAmount; i++) createPageButton(i);
+    createNextButton();
+
+    function createPageButton(i) {
+        let pageButton = document.createElement("div");
+        pageButton.className = "clients-page";
+        if (i === 1) pageButton.classList.add("active-page");
+        pageButton.setAttribute("data-target", i);
+        pageButton.textContent = i;
+        paginationBlock.append(pageButton);
+    }
+
+    function createPrevButton() {
+        let prev = document.createElement("div");
+        prev.className = "prev-clients-page";
+        prev.setAttribute("data-target", "prev");
+        prev.textContent = "«";
+        paginationBlock.append(prev);
+    }
+
+    function createNextButton() {
+        let next = document.createElement("div");
+        next.className = "next-clients-page";
+        next.setAttribute("data-target", "next");
+        next.textContent = "»";
+        paginationBlock.append(next);
+    }
+
+}*/
+
+function showClientsPageResult(page) {
 
     $.ajax("/api/clients/table", {
         type: 'GET',  // http method
@@ -77,9 +104,9 @@ function showClientsPageResult(page) {
         dataType: "json", // data to submit
         success: function (data) {
             clearClientsSection();
-            let keys = Object.keys(data).length;
+            let keys = Object.keys(data["content"]).length;
             if (keys < 1) clearClientsSection();
-            else for (let i = 0; i < keys; i++) createClientRecord(data[i]);
+            else for (let i = 0; i < keys; i++) createClientRecord(data["content"][i.toString()]);
         },
         error: function () {
             setCookie("errorMessage", "Unable to find record", 5);

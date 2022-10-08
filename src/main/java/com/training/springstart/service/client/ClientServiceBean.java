@@ -9,6 +9,7 @@ import com.training.springstart.service.auth.AuthLoginServiceBean;
 import com.training.springstart.service.auth.AuthRegisterServiceBean;
 import com.training.springstart.service.card.CardServiceBean;
 import com.training.springstart.util.PagingEntity.PagingEntity;
+import com.training.springstart.util.email.EmailSender;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectFactory;
@@ -18,13 +19,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
 @org.springframework.stereotype.Service
-public class ClientServiceBean implements ClientsTableService, CrudService<Client>, ClientsPhoneService, GetClientByValueService, LoginRegisterService, UpdateDataService {
+public class ClientServiceBean implements ClientsTableService, CrudService<Client>, ClientsSearchValuePageableService, GetClientByValueService, LoginRegisterService, UpdateDataService {
 
     private final ClientRepository clientRepository;
 
@@ -176,29 +176,44 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
     }
 
     @Override
-    public List<Client> getPageAllNotDeleted(PagingEntity pagingEntity) {
+    public Page<Client> getPageAllNotDeleted(Integer page, Integer size, String sort) {
+
+        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
 
         Pageable paging = PageRequest.of(
                 pagingEntity.getPage(),
                 pagingEntity.getSize(),
                 Sort.by(pagingEntity.getSort()));
 
-        Page<Client> pageResult = clientRepository.findAll(paging);
-
-        if(pageResult.hasContent()) {
-            return pageResult.getContent();
-        } else {
-            return Collections.emptyList();
-        }
+        return clientRepository.findAllNotDeletedPage(paging);
     }
 
     @Override
     public Page<Client> findClientsPageByPhoneCode(String phone_code) {
         Pageable pageable = PageRequest.of(0, 5, Sort.by("id").ascending());
         return clientRepository.findPP(phone_code, pageable);
-
-
     }
+
+    @Override
+    public Page<Client> findClientsPageByEmailDomain(Integer page, Integer size, String sort, String email_domain) {
+        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
+        Pageable paging = PageRequest.of(
+                pagingEntity.getPage(),
+                pagingEntity.getSize(),
+                Sort.by(pagingEntity.getSort()));
+
+        Page<Client> clientsPage = clientRepository.findClientsWithEmailDomain(email_domain, paging);
+
+        clientsPage.getContent()
+                .forEach(client -> new EmailSender(
+                        client.getEmail(),
+                        "Subject",
+                        "Body")
+                        .send());
+
+        return clientsPage;
+    }
+
 
     public Client createWithPromo(Client client, PromoCode promoCode) {
         clientRepository.saveWithPromo(client, promoCode);
@@ -214,4 +229,27 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
         saveCard(card);
         return client;
     }
+
+    public Page<Client> findClientsWithNoCardAdded(Integer page, Integer size, String sort) {
+        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
+
+        Pageable paging = PageRequest.of(
+                pagingEntity.getPage(),
+                pagingEntity.getSize(),
+                Sort.by(pagingEntity.getSort()));
+
+        return clientRepository.findClientsWithNoCard(paging);
+    }
+
+    public Page<Client> findClientsWithCardAdded(Integer page, Integer size, String sort) {
+        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
+
+        Pageable paging = PageRequest.of(
+                pagingEntity.getPage(),
+                pagingEntity.getSize(),
+                Sort.by(pagingEntity.getSort()));
+
+        return clientRepository.findClientsWithCard(paging);
+    }
+
 }

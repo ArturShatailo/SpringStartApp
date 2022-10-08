@@ -104,6 +104,13 @@
         </dependency>
 
 
+        <!--Email sender-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
         <!--<dependency>
             <groupId>dev.akkinoc.spring.boot</groupId>
             <artifactId>orika-spring-boot-starter</artifactId>

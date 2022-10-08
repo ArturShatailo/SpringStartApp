@@ -135,20 +135,33 @@ public class ClientsController implements ClientApiRepresentable {
     @Override
     @GetMapping(value = "/clients/table", params = {"page", "size", "sort"})
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
+    public Page<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
                                        @RequestParam(defaultValue = "10") Integer size,
                                        @RequestParam(defaultValue = "id") String sort) {
 
-        PagingEntity pagingEntity = new PagingEntity(page, size, sort);
-        return clientServiceBean.getPageAllNotDeleted(pagingEntity);
+        return clientServiceBean.getPageAllNotDeleted(page, size, sort);
     }
 
     @Override
-    @GetMapping(value = "/clients/table/phones")
+    @GetMapping(value = "/clients/table/phone")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code) {
+    public Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code,
+                                                  @RequestParam(defaultValue = "0") Integer page,
+                                                  @RequestParam(defaultValue = "10") Integer size,
+                                                  @RequestParam(defaultValue = "id") String sort) {
         log.info("Start method getClientsPageByPhoneCode with parameter {}", phone_code);
         return clientServiceBean.findClientsPageByPhoneCode(phone_code);
+    }
+
+    @Override
+    @GetMapping(value = "/clients/table/email")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Client> getClientsPageByEmailDomain(@RequestParam String email_domain,
+                                                  @RequestParam(defaultValue = "0") Integer page,
+                                                  @RequestParam(defaultValue = "10") Integer size,
+                                                  @RequestParam(defaultValue = "id") String sort) {
+        log.info("Start method findClientsPageByEmailDomain with parameter {}", email_domain);
+        return clientServiceBean.findClientsPageByEmailDomain(page, size, sort, email_domain);
     }
 
     @Override
@@ -165,10 +178,29 @@ public class ClientsController implements ClientApiRepresentable {
     public Client updateCardInformation(@RequestBody CardSaveDTO cardSaveDTO, HttpServletResponse response) throws IOException {
         Card card = cardConverter.toObject(cardSaveDTO);
         //Client client = checkClientBySession(response);
-        Client client = getClientById(17);
+        Client client = getClientById(10);
         client = clientServiceBean.updateCards(client, card);
         //return clientConverter.toAreaViewDTO(client);
         return client;
+    }
+
+
+    @Transactional
+    @GetMapping(value = "/clients/table/no-cards")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Client> getClientsPageByNoCardAdded(@RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "10") Integer size,
+                                                    @RequestParam(defaultValue = "id") String sort) {
+        return clientServiceBean.findClientsWithNoCardAdded(page, size, sort);
+    }
+
+    @Transactional
+    @GetMapping(value = "/clients/table/cards")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Client> getClientsPageByCardAdded(@RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "10") Integer size,
+                                                    @RequestParam(defaultValue = "id") String sort) {
+        return clientServiceBean.findClientsWithCardAdded(page, size, sort);
     }
 
 }

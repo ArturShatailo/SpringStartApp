@@ -135,7 +135,7 @@ public interface ClientApiRepresentable {
             @ApiResponse(responseCode = "409", description = "conflict in the request")})
     @GetMapping(value = "/clients/table", params = {"page", "size", "sort"})
     @ResponseStatus(HttpStatus.FOUND)
-    List<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
+    Page<Client> getClientsPage(@RequestParam(defaultValue = "0") Integer page,
                                        @RequestParam(defaultValue = "10") Integer size,
                                        @RequestParam(defaultValue = "id") String sort);
 
@@ -147,9 +147,22 @@ public interface ClientApiRepresentable {
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND. Specified client request not found."),
             @ApiResponse(responseCode = "409", description = "conflict in the request")})
-    @GetMapping(value = "/clients/table/p")
+    @GetMapping(value = "/clients/table/phone")
     @ResponseStatus(HttpStatus.FOUND)
-    Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code);
+    Page<Client> getClientsPageByPhoneCode(@RequestParam String phone_code,
+                                           @RequestParam(defaultValue = "0") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer size,
+                                           @RequestParam(defaultValue = "id") String sort);
+
+
+    @GetMapping(value = "/clients/table/email")
+    @ResponseStatus(HttpStatus.FOUND)
+    Page<Client> getClientsPageByEmailDomain(@RequestParam String email_domain,
+                                           @RequestParam(defaultValue = "0") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer size,
+                                           @RequestParam(defaultValue = "id") String sort);
+
+
 
     @Operation(summary = "This is endpoint to create client after receiving ClientDTO object in RequestBody including PromoCode",
             description = "Create request to save client in DB and save new PromoCode in DB.",
