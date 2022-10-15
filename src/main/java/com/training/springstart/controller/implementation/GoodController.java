@@ -1,15 +1,14 @@
 package com.training.springstart.controller.implementation;
 
-import com.training.springstart.model.Client;
 import com.training.springstart.model.Good;
 import com.training.springstart.service.good.GoodServiceBean;
-import com.training.springstart.util.PagingEntity.PagingEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import java.util.Date;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -47,7 +46,7 @@ public class GoodController {
         goodServiceBean.removeById(id);
     }
 
-    @GetMapping("/get-new-goods")
+    @GetMapping("/goods/new")
     @ResponseStatus(HttpStatus.OK)
     public List<Good> getAllRecentlyAddedGoods() {
         return goodServiceBean.getAllRecentlyAddedGoods();
@@ -61,10 +60,22 @@ public class GoodController {
     }
 
 
-
     //STREAM API METHODS
 
-    @GetMapping("/get-new-goods-streamAPI")
+    @PutMapping("/goods")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Optional<Good>> deleteSpecified(@RequestBody List<Integer> goodsIDs) {
+        return goodServiceBean.deleteListOfGoods(goodsIDs);
+    }
+
+    @GetMapping("/goods/last")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Good> discountSpecified() {
+        return goodServiceBean.getLeftFewListOfGoods();
+    }
+
+
+    @GetMapping("/goods/new-streamAPI")
     @ResponseStatus(HttpStatus.OK)
     public List<Good> getAllRecentlyAddedGoodsStreamAPI() {
         return goodServiceBean.getAllRecentlyAddedGoodsStreamAPI();

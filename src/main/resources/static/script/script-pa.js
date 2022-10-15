@@ -52,7 +52,7 @@ function getCurrentUserData() {
  * In case of error, prints it to the console.log
  */
 function getShopData() {
-    $.ajax('/api/get-new-goods', {
+    $.ajax('/api/goods/new', {
         type: 'GET',  // http method
         data: {},  // data to submit
         success: function (data) {

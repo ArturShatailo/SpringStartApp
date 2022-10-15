@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -100,5 +101,29 @@ public class GoodServiceBean implements CrudService<Good>, GoodService {
     }
 
 
+    public List<Optional<Good>> deleteListOfGoods(List<Integer> goodsIDs) {
+        return goodsIDs.stream()
+                .map(id -> goodRepository.findById(id)
+                        .filter(good -> !good.isDeleted())
+                        .map(good -> {
+                            good.setDeleted(true);
+                            return goodRepository.save(good);
+                        }))
+                .collect(Collectors.toList());
+    }
+
+    public List<Good> getLeftFewListOfGoods() {
+        Long date = getMonthPeriod();
+        List<Good> goods = getAll();
+        return goods.stream()
+                .filter(good -> !good.isDeleted())
+                .filter(good -> good.getAmount() < 5)
+                .filter(good -> good.getAdded_date_time() < date)
+                .map(good -> {
+                    good.setComment("Left few. Hurry up!");
+                    return goodRepository.save(good);
+                })
+                .collect(Collectors.toList());
+    }
 
 }
