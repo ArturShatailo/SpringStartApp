@@ -50,12 +50,33 @@ public class GoodController {
     @GetMapping("/get-new-goods")
     @ResponseStatus(HttpStatus.OK)
     public List<Good> getAllRecentlyAddedGoods() {
-        Date date = new Date();
-        long millisecond = date.getTime();
-        Long neededTime = millisecond - 86400000L;
-        return goodServiceBean.getAllRecentlyAddedGoods(neededTime);
+        return goodServiceBean.getAllRecentlyAddedGoods();
     }
 
+    @GetMapping("/goods/price-range")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Good> getAllNotDeletedGoodsInPriceRange(@RequestParam(name = "priceFloor") Double priceFloor,
+                                                        @RequestParam(defaultValue = "priceCeil") Double priceCeil) {
+        return goodServiceBean.getAllGoodsInPriceRange(priceFloor, priceCeil);
+    }
+
+
+
+    //STREAM API METHODS
+
+    @GetMapping("/get-new-goods-streamAPI")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Good> getAllRecentlyAddedGoodsStreamAPI() {
+        return goodServiceBean.getAllRecentlyAddedGoodsStreamAPI();
+    }
+
+
+    @GetMapping("/goods/price-range-streamAPI")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Good> getAllNotDeletedGoodsInPriceRangeStreamAPI(@RequestParam(name = "priceFloor") Double priceFloor,
+                                                        @RequestParam(defaultValue = "priceCeil") Double priceCeil) {
+        return goodServiceBean.getAllGoodsInPriceRangeStreamAPI(priceFloor, priceCeil);
+    }
 
 
 }

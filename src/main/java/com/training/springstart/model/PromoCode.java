@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "promo_codes")
+@Table(name = "promos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -16,9 +16,7 @@ public class PromoCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String owner_email;
-
     private String value;
 
-    private boolean status;
+    private boolean isActive = Boolean.TRUE;
 }

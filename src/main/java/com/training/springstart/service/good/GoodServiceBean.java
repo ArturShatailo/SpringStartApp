@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Slf4j
@@ -59,8 +61,44 @@ public class GoodServiceBean implements CrudService<Good>, GoodService {
     }
 
     @Override
-    public List<Good> getAllRecentlyAddedGoods(Long date) {
+    public List<Good> getAllRecentlyAddedGoods() {
+        Long date = getMonthPeriod();
         List<Good> goods = goodRepository.findRecentlyAddedGoods(date);
         return goods;
     }
+
+    private Long getMonthPeriod() {
+        Date date = new Date();
+        long millisecond = date.getTime();
+        return millisecond - 86400000L;
+    }
+
+    public List<Good> getAllGoodsInPriceRange(Double priceFloor, Double priceCeil) {
+        return goodRepository.findGoodsInPriceRange(priceFloor, priceCeil);
+    }
+
+
+
+
+    //STREAM API METHODS
+    public List<Good> getAllRecentlyAddedGoodsStreamAPI() {
+        Long date = getMonthPeriod();
+        List<Good> goods = getAll();
+        return goods.stream()
+                .filter(g -> !g.isDeleted())
+                .filter(g -> g.getAdded_date_time() >= date)
+                .collect(Collectors.toList());
+    }
+
+    public List<Good> getAllGoodsInPriceRangeStreamAPI(Double priceFloor, Double priceCeil) {
+        List<Good> goods = getAll();
+        return goods.stream()
+                .filter(g -> !g.isDeleted())
+                .filter(g -> g.getPrice() >= priceFloor)
+                .filter(g -> g.getPrice() <= priceCeil)
+                .collect(Collectors.toList());
+    }
+
+
+
 }

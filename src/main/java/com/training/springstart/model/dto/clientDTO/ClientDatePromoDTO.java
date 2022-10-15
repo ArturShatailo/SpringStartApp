@@ -1,9 +1,8 @@
 package com.training.springstart.model.dto.clientDTO;
 
-import com.training.springstart.model.PromoCode;
+import com.training.springstart.model.dto.PromoCodeDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +52,7 @@ public class ClientDatePromoDTO {
     private boolean deleted;
 
     @Schema(description = "Promo code of a client", example = "NuI233i32", required = true)
-    private PromoCode promo_code;
+    public PromoCodeDTO promoCode;
 
     @Schema(description = "Date of the registration", example = "2824.07.18 at 04:14:09", required = true)
     private String date =

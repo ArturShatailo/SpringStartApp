@@ -1,10 +1,6 @@
 package com.training.springstart.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +8,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Getter
+@Setter
 public class Client {
 
     @Id
@@ -30,6 +27,20 @@ public class Client {
     private String phone_number;
 
     private boolean deleted;
+
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "promo_id")
+    private PromoCode promoCode;
+
+    public Client(Integer id, String name, String surname, String password, String email, String phone_number, boolean deleted) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.deleted = deleted;
+    }
 
     public void setId(Integer id) {
         this.id = id;

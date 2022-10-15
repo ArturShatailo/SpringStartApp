@@ -154,7 +154,7 @@ header{
 }
 
 main{
-  @include displayFlex(column, center, center); padding: 0 0; width: 100vw; min-height: 70vh;
+  @include displayFlex(column, center, center); padding: 0 0; width: 100vw; min-height: 65vh;
 
   .personal-area-info{
      flex-wrap: wrap;
@@ -223,6 +223,20 @@ main{
 
       }
     }
+  }
+
+}
+
+footer{
+  @include displayFlex(column, flex-start, flex-start); padding: 0 0; width: 100vw; min-height: 15vh;
+
+  .promo-code-area{
+    @include displayFlex(row, flex-start, center); padding: 20px;
+
+    #promo_code{
+      text-align: center; color: $primary; font-weight: 500; font-size: 22px;
+    }
+
   }
 
 }

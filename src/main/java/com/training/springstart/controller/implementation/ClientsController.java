@@ -169,7 +169,7 @@ public class ClientsController implements ClientApiRepresentable {
     @ResponseStatus(HttpStatus.CREATED)
     public Client saveClient(@RequestBody ClientDatePromoDTO clientDatePromoDTO) {
         Client client = clientConverter.toObject(clientDatePromoDTO);
-        return clientServiceBean.createWithPromo(client, clientDatePromoDTO.getPromo_code());
+        return clientServiceBean.create(client);
     }
 
     @Transactional
@@ -178,7 +178,7 @@ public class ClientsController implements ClientApiRepresentable {
     public Client updateCardInformation(@RequestBody CardSaveDTO cardSaveDTO, HttpServletResponse response) throws IOException {
         Card card = cardConverter.toObject(cardSaveDTO);
         //Client client = checkClientBySession(response);
-        Client client = getClientById(10);
+        Client client = getClientById(55);
         client = clientServiceBean.updateCards(client, card);
         //return clientConverter.toAreaViewDTO(client);
         return client;

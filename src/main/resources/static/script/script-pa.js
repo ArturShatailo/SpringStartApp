@@ -36,6 +36,8 @@ function getCurrentUserData() {
         data: {},  // data to submit
         success: function (data) {
             $('#user-email').text(data["name"] +" " + data["surname"]);
+            if (data["promoCode"] != null)
+                $('#promo_code').text("PROMO-CODE: #"+data["promoCode"]["value"])
         },
         error: function () {
             console.log("Unable to upload personal data");

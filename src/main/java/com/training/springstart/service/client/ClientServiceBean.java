@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -212,12 +214,6 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
                         .send());
 
         return clientsPage;
-    }
-
-
-    public Client createWithPromo(Client client, PromoCode promoCode) {
-        clientRepository.saveWithPromo(client, promoCode);
-        return getByEmail(client.getEmail());
     }
 
     public void saveCard(Card card) {

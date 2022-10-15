@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface GoodService {
 
-    List<Good> getAllRecentlyAddedGoods(Long date);
+    List<Good> getAllRecentlyAddedGoods();
 
 }

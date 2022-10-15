@@ -57,18 +57,18 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
 */
 
 
-    @Transactional
-    @Modifying
-    @Query(value =
-            "BEGIN; " +
-                    "INSERT INTO clients (name, surname, password, phone_number, deleted, email)" +
-                    "VALUES (:#{#client.name}, :#{#client.surname}, :#{#client.password}, " +
-                    ":#{#client.phone_number}, false, :#{#client.email});" +
-                    "INSERT INTO promo_codes (owner_email, value, status) " +
-                    "VALUES (:#{#promo_code.owner_email}, :#{#promo_code.value}, :#{#promo_code.status})  " +
-                    ";"+
-            "COMMIT;", nativeQuery = true)
-    void saveWithPromo(@Param("client") Client client, @Param("promo_code") PromoCode promo_code);
+//    @Transactional
+//    @Modifying
+//    @Query(value =
+//            "BEGIN; " +
+//                    "INSERT INTO clients (name, surname, password, phone_number, deleted, email)" +
+//                    "VALUES (:#{#client.name}, :#{#client.surname}, :#{#client.password}, " +
+//                    ":#{#client.phone_number}, false, :#{#client.email});" +
+//                    "INSERT INTO promo_codes (owner_email, value, status) " +
+//                    "VALUES (:#{#promo_code.owner_email}, :#{#promo_code.value}, :#{#promo_code.status})  " +
+//                    ";"+
+//            "COMMIT;", nativeQuery = true)
+//    void saveWithPromo(@Param("client") Client client, @Param("promo_code") PromoCode promo_code);
 
 
     @Query(value = "" +
