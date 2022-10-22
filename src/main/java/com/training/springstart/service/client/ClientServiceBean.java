@@ -69,6 +69,7 @@ public class ClientServiceBean implements ClientsTableService, CrudService<Clien
                     entity.setEmail(client.getEmail());
                     entity.setPassword(client.getPassword());
                     entity.setPhone_number(client.getPhone_number());
+                    entity.setOrders(client.getOrders());
                     return clientRepository.save(entity);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Client not found with id = " + id));

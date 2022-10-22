@@ -1,0 +1,1 @@
+alter table order_requests add foreign key (client_id) references clients;
