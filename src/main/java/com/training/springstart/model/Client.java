@@ -2,6 +2,7 @@ package com.training.springstart.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "clients")
@@ -31,6 +32,10 @@ public class Client {
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "promo_id")
     private PromoCode promoCode;
+
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private Set<Order> orders;
 
     public Client(Integer id, String name, String surname, String password, String email, String phone_number, boolean deleted) {
         this.id = id;
