@@ -53,7 +53,7 @@ public class ClientsController implements ClientApiRepresentable {
 
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getAllClients() {
