@@ -3,6 +3,7 @@ package com.training.springstart.controller;
 import com.training.springstart.model.Client;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class WebController {
         return "login";
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/personal-area")
     public String greetingController(Model model) {
 

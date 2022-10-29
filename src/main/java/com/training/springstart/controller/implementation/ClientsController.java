@@ -19,6 +19,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +51,9 @@ public class ClientsController implements ClientApiRepresentable {
         return clientServiceBean.create(client);
     }
 
+
     @Override
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getAllClients() {

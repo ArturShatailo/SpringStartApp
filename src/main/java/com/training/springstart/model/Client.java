@@ -1,5 +1,6 @@
 package com.training.springstart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
@@ -34,6 +35,7 @@ public class Client {
     @JoinColumn(name = "promo_id")
     private PromoCode promoCode;
 
+    @JsonIgnore
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Set<Order> orders;
