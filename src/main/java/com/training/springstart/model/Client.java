@@ -1,5 +1,6 @@
 package com.training.springstart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
