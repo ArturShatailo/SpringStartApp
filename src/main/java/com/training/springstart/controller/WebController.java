@@ -27,7 +27,7 @@ public class WebController {
         return "login";
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/personal-area")
     public String greetingController(Model model) {
 

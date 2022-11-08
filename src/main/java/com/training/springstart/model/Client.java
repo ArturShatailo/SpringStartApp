@@ -35,7 +35,6 @@ public class Client {
     @JoinColumn(name = "promo_id")
     private PromoCode promoCode;
 
-    @JsonIgnore
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Set<Order> orders;
